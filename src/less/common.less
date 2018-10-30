@@ -1,0 +1,133 @@
+@charset "utf-8";
+/* 全局CSS定义 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-size: 14px;
+    background: #fff;
+}
+
+h1, h2, h3, h4, p, ul, ol, dl, dt, dd {
+    margin: 0;
+    padding: 0;
+}
+
+/** 设置默认字体 **/
+body, button, input, select, textarea /* for ie */
+{
+    font-family: 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', sans-serif;
+    /*  font-family: '宋体';*/
+    color: #666;
+}
+
+/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+th, td /* table elements 表格元素 */
+{
+    margin: 0;
+    padding: 0;
+}
+
+address, cite, dfn, em, var {
+    font-style: normal;
+}
+
+/* 将斜体扶正 */
+
+/** 重置列表元素 **/
+ul, ol, li {
+    list-style: none;
+}
+
+/** 重置文本格式元素 **/
+a {
+    text-decoration: none;
+    color: #666;
+    cursor: pointer;
+}
+
+a:hover, a:focus, a:visited {
+    text-decoration: none;
+    color: #666;
+}
+
+/*去掉IE的虚线框*/
+a:active, a:focus {
+    border: none;
+    outline: none;
+}
+
+/** 重置表单元素 **/
+fieldset, img {
+    border: 0;
+}
+
+/* img 搭车：让链接里的 img 无边框 */
+button, input, select, textarea {
+    font-size: 100%;
+}
+
+/* 使得表单元素在 ie 下能继承字体大小 */
+
+/** 重置表格元素 **/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    line-height: inherit;
+}
+
+/*自定义样式*/
+body{
+    background: url("../images/common/cm-bg.jpg");
+    overflow: auto;
+}
+.icon {
+    display: inline-block;
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.logo-icon{
+    background: url("../images/common/logo-icon.png") no-repeat;
+    width: 41px;
+    height: 41px;
+    background-size: 100% 100%;
+}
+.cm-btn{
+    cursor: pointer;
+}
+#app{
+    position: relative;
+    height: auto;
+    min-height: 100%;
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+.cm-page{
+
+}
+.cm-container{
+    width: 1024px;
+    margin: 0px auto;
+}
