@@ -84,32 +84,37 @@
                             <i class="icon worship-icon"></i>
                             <ul class="btn-list">
                                 <li class="cm-btn">
-                                    <i class="icon flower-btn"></i>
+                                    <i class="icon flower-btn"  @click="doWorship('flower')"></i>
                                 </li>
                                 <li class="cm-btn">
-                                    <i class="icon incense-btn"></i>
+                                    <i class="icon incense-btn"  @click="doWorship('candle')"></i>
                                 </li>
                                 <li class="cm-btn">
-                                    <i class="icon candlestick-btn"></i>
+                                    <i class="icon candlestick-btn" @click="doWorship('oil')"></i>
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="gift-item-block">
+                        <i class="icon flower-icon gift-item flower-gift-item" :style="flowerPosition" :class="{'active':flowerPosition}"></i>
+                        <i class="icon incense-icon gift-item incense-gift-item"  :style="incensePosition"  :class="{'active':incensePosition}"></i>
+                        <i class="icon candlestick-icon gift-item gcandlestick-gift-item"  :style="gcandlestickPosition"  :class="{'active':gcandlestickPosition}"></i>
                     </div>
                     <div class="dialog-block">
                         <span>妈祖作为一个古代汉族民间的神祗，为何她的精神能被海内外、世界上这么多人认可、赞扬和崇敬呢？这里一个重要原因就是。</span>
                     </div>
                     <div class="flower-block">
-                        <div class="flower-item" v-for="(item,index) in flowerList" :key="index" :style="item.position">
+                        <div class="sent-item flower-item" v-for="(item,index) in flowerList" :key="index" :style="item.position">
                             <i class="icon flower-icon"></i>
                         </div>
                     </div>
                     <div class="candlestick-block">
-                        <div class="candlestick-item" v-for="(item,index) in candlestick" :key="index" :style="item.position">
+                        <div class="sent-item candlestick-item" v-for="(item,index) in candlestick" :key="index" :style="item.position">
                             <i class="icon candlestick-icon"></i>
                         </div>
                     </div>
                     <div class="incense-block">
-                        <div class="incense-item">
+                        <div class="sent-item incense-item" v-for="(item,index) in incenseList" :key="index" :style="item.position">
                             <i class="icon incense-icon"></i>
                         </div>
                     </div>
@@ -234,6 +239,7 @@
             position: absolute;
             left: 0px;
             right: 0px;
+            z-index: 2;
             bottom: -40px;
             margin: auto;
             width: 380px;
@@ -300,6 +306,7 @@
             color: #feeaab;
             padding: 10px 10px 10px 85px;
             line-height: 24px;
+          /*  font-family: '隶书';*/
         }
         .flower-icon{
             display: inline-block;
@@ -308,9 +315,40 @@
             height: 110px;
             background-size: 100% 100%;
         }
+        .gift-item{
+            opacity: 0;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .sent-item{
+            opacity: 0;
+            /*transition: opacity 0.3s;*/
+        }
+        .flower-gift-item{
+            transform:translate(369px, 759px);
+            &.active{
+                opacity: 1;
+                transition: transform 2s ease;
+            }
+        }
+        .incense-gift-item{
+            transform:translate(464px, 635px);
+            &.active{
+                opacity: 1;
+                transition: transform 1.4s ease;
+            }
+        }
+        .gcandlestick-gift-item{
+            transform:translate(559px, 780px);
+            &.active{
+                opacity: 1;
+                transition: transform 1.8s ease;
+            }
+        }
         .flower-item{
             position: absolute;
-            transform:translate(0px, 272px)
+            transform:translate(0px, 272px);
         }
         .candlestick-icon{
             display: inline-block;
@@ -332,7 +370,7 @@
         }
         .incense-item{
             position: absolute;
-            transform:translate(0px, 375px)
+            transform:translate(412px, 429px);
         }
     }
 </style>
@@ -345,143 +383,85 @@
         },
         data: function(){
             return {
+                token:null,
                 defaultAvatar:require('../images/common/default-avatar.png'),
                 flowerList:[],
                 candlestick:[],
+                incenseList:[],
+                flowerPosition:{},
+                incensePosition:{},
+                gcandlestickPosition:{},
+
+
             }
         },
         methods: {
-            submitForm() {
-                if(this.pageName=='login'){
-                    let code=document.getElementsByClassName('code-value')[0].value;
-                    if(!this.ruleForm.username||this.ruleForm.username==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入账号'});
-                        return;
+            getWorshipInfo() {
+                Vue.api.getWorshipInfo({token:this.token}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.token=data.token;
+                        console.log('data:',data);
+                        this.$cookie.set('token',this.token,'120s');
+                    }else{
+
                     }
-                    if(!this.ruleForm.password||this.ruleForm.password==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入密码'});
-                        return;
-                    }
-                    if(!this.ruleForm.identifyCode||this.ruleForm.identifyCode==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入验证码'});
-                        return;
-                    }
-                    if(this.ruleForm.identifyCode!=code){
-                        Vue.operationFeedback({type:'warn',text:'验证码错误'});
-                        return;
-                    }
-                    let fb=Vue.operationFeedback({text:'登录中...'});
-                    Vue.api.login({adminName:this.ruleForm.username,password:this.ruleForm.password}).then((resp)=>{
-                        if(resp.respCode=='2000'){
-                            let data=JSON.parse(resp.respMsg);
-                            console.log('data:',data);
-                            this.$cookie.set('account',JSON.stringify(data),7);
-                            this.$router.push({name:'customerAdmin',params:{}});
-                            fb.setOptions({type:'complete',text:'登录成功'});
-                        }else{
-                            fb.setOptions({type:'warn',text:'登录失败，'+resp.respMsg});
-                        }
-                    });
-                }else if(this.pageName=='adminLogin'){
-                    let code=document.getElementsByClassName('code-value')[0].value;
-                    if(!this.ruleForm.username||this.ruleForm.username==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入账号'});
-                        return;
-                    }
-                    if(!this.ruleForm.password||this.ruleForm.password==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入密码'});
-                        return;
-                    }
-                    if(!this.ruleForm.identifyCode||this.ruleForm.identifyCode==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入验证码'});
-                        return;
-                    }
-                    if(this.ruleForm.identifyCode!=code){
-                        Vue.operationFeedback({type:'warn',text:'验证码错误'});
-                        return;
-                    }
-                    let fb=Vue.operationFeedback({text:'登录中...'});
-                    Vue.api.adminLogin({...Vue.sessionInfo(),account:this.ruleForm.username,password:this.ruleForm.password}).then((resp)=>{
-                        if(resp.respCode=='00'){
-                            let data=JSON.parse(resp.respMsg);
-                            localStorage.setItem('loginPage','adminLogin');
-                            this.$cookie.set('account',JSON.stringify({
-                                type:data.role,
-                                account:this.ruleForm.username,
-                            }),7);
-                            this.$router.push({name:'benefitRank',params:{}});
-                            fb.setOptions({type:'complete',text:'登录成功'});
-                        }else{
-                            fb.setOptions({type:'warn',text:'登录失败，'+resp.respMsg});
-                        }
-                    });
-                }else if(this.pageName=='userLogin'||this.pageName=='shopLogin'){
-                    if(this.$route.query.test=='userTest'){
-                        this.$cookie.set('account',JSON.stringify({
-                            type:this.accountType,
-                            account:15876513870,
-                            id:'1922433ca7924bb5abdb7e58571207b6'
-                        }),7);
-                        this.$router.push({name:this.pageName=='userLogin'?'statistics':'saleStatistics',params:{}});
-                        return;
-                    }
-                    if(!this.codeData){
-                        Vue.operationFeedback({type:'warn',text:'请先发送短信获取验证码'});
-                        return;
-                    }
-                    if(!this.ruleForm.phoneCode||this.ruleForm.phoneCode==''){
-                        Vue.operationFeedback({type:'warn',text:'请输入手机验证码'});
-                        return;
-                    }
-                    let params={
-                        ...Vue.sessionInfo(),
-                        bizId:this.codeData.sms.bizId,
-                        phone:this.ruleForm.phone,
-                        verifyCode:this.ruleForm.phoneCode
-                    }
-                    let fb=Vue.operationFeedback({text:'登录中...'});
-                    Vue.api.checkPhoneCode(params).then((resp)=>{
-                        if(resp.respCode=='00'){
-                            localStorage.setItem('loginPage',this.pageName);
-                            this.$cookie.set('account',JSON.stringify({
-                                type:this.accountType,
-                                account:this.ruleForm.phone,
-                                id:this.codeData.account.id
-                            }),7);
-                         /*   this.$cookie.set('account',JSON.stringify({
-                                type:this.accountType,
-                                account:15876513870,
-                                id:'1922433ca7924bb5abdb7e58571207b6'
-                            }),7);*/
-                            this.$router.push({name:this.pageName=='userLogin'?'statistics':'saleStatistics',params:{}});
-                            fb.setOptions({type:'complete',text:'登录成功'});
-                        }else{
-                            fb.setOptions({type:'warn',text:'登录失败，'+resp.respMsg});
-                        }
-                    });
+                });
+            },
+            doWorship(type) {
+                let params={
+                    token:this.token,
+                    type:type,//"flower","candle","oil"
+                    msg:'test'+Math.random(),
                 }
+                Vue.api.doWorship(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        if(type=='flower'){
+                            let position=this.flowerList[0].position;
+                            this.flowerPosition={...position};
+                            setTimeout(()=>{
+                                position.opacity=1;
+                                this.flowerPosition=null;
+                            },2000);
+                        }else if(type=='candle'){
+                            let position=this.incenseList[0].position;
+                            this.incensePosition={...position};
+                            setTimeout(()=>{
+                                position.opacity=1;
+                                this.incensePosition=null;
+                            },1400);
+                        }else if(type=='oil'){
+                            let position=this.candlestick[0].position;
+                            this.gcandlestickPosition={...position};
+                            setTimeout(()=>{
+                                position.opacity=1;
+                                this.gcandlestickPosition=null;
+                            },1800);
+                        }
+                        console.log('data:',data);
+
+                    }else{
+
+                    }
+                });
             },
-            getCode:function (data) {
-                console.log('data:',data);
-            },
-            genCodeData:function (data) {
-                console.log('data:',data);
-                this.codeData={
-                    sms:data.sms?JSON.parse(data.sms):{},
-                    account:this.pageName=='userLogin'?JSON.parse(data.user):JSON.parse(data.shop),
-                };
-            }
         },
         mounted () {
+            this.token=this.$cookie.get('token');
+            this.token=this.token?this.token:null;
             //
             for(let i=0;i<10;i++){
                 let item={};
+                let x=0;
                 if(i<5){
+                    x=58*i;
                     item.position={transform:'translate('+58*i+'px, 272px)'}
                 }else{
+                    x=380+58*i;
                     item.position={transform:'translate('+(380+58*i)+'px, 272px)'}
                 }
-                this.flowerList.push(item);
+                this.flowerList.push({position:{transform:'translate('+x+'px, 272px)',active:false}});
             }
             //
             for(let i=0;i<3;i++){
@@ -512,9 +492,17 @@
                     }else{
                         x=xGapDeviator+42*j;
                     }
-                    this.candlestick.push({position:{transform:'translate('+x+'px, '+y+'px)'}})
+                    this.candlestick.push({position:{transform:'translate('+x+'px, '+y+'px)',active:false}})
                 }
             }
+            //
+            for(let i=0;i<50;i++){
+                let x=parseInt(Math.random()*(482+1)+218,10);
+                let y=parseInt(Math.random()*(10+1)+422,10);
+                this.incenseList.push({position:{transform:'translate('+x+'px, '+y+'px)',active:false}})
+            }
+            //
+            this.getWorshipInfo();
         },
     }
 </script>
