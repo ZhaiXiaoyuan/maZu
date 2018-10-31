@@ -8,72 +8,24 @@
                 <div class="panel-bd">
                     <div class="number-block">
                         <div class="row">
-                            <p>累计朝拜人次<span class="strong">1000000</span></p>
+                            <p>累计朝拜人次<span class="strong">{{infoData.totleWorshipCount}}</span></p>
                         </div>
                         <div class="row">
-                            <p>当前<span class="strong">10000</span>人正在朝拜妈祖</p>
+                            <p>当前<span class="strong">{{infoData.currentOnlineCount}}</span>人正在朝拜妈祖</p>
                         </div>
                     </div>
                     <div class="data-block">
-                        <p>累计鲜花：<span class="strong">10w</span></p>
-                        <p>累计香火：<span class="strong">10w</span></p>
-                        <p>累计香油：<span class="strong">10w</span></p>
+                        <p>累计鲜花：<span class="strong">{{infoData.totleFlowerCount}}</span></p>
+                        <p>累计香火：<span class="strong">{{infoData.totleCandleCount}}</span></p>
+                        <p>累计香油：<span class="strong">{{infoData.totleOliCount}}</span></p>
                     </div>
                     <div class="barrage-block">
                        <div class="block-content">
                            <ul>
-                               <li>
+                               <li v-for="(item,index) in barrageList" :key="index">
                                    <img :src="defaultAvatar" alt="">
                                    <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海</span>献上了<span class="strong">香油</span></p>
-                                   </div>
-                               </li>
-                               <li>
-                                   <img :src="defaultAvatar" alt="">
-                                   <div class="text">
-                                       <p><span class="strong">拓海233</span>献上了<span class="strong">香油</span></p>
+                                       <p><span class="strong">{{item.name}}</span>献上了<span class="strong">{{item.gift}}</span></p>
                                    </div>
                                </li>
                            </ul>
@@ -104,17 +56,17 @@
                         <span>妈祖作为一个古代汉族民间的神祗，为何她的精神能被海内外、世界上这么多人认可、赞扬和崇敬呢？这里一个重要原因就是。</span>
                     </div>
                     <div class="flower-block">
-                        <div class="sent-item flower-item" v-for="(item,index) in flowerList" :key="index" :style="item.position">
+                        <div class="sent-item flower-item" v-for="(item,index) in flowerList" :key="index" :style="item.position" :class="{'active':item.msg}">
                             <i class="icon flower-icon"></i>
                         </div>
                     </div>
                     <div class="candlestick-block">
-                        <div class="sent-item candlestick-item" v-for="(item,index) in candlestick" :key="index" :style="item.position">
+                        <div class="sent-item candlestick-item" v-for="(item,index) in gcandlestickList" :key="index" :style="item.position"  :class="{'active':item.msg}">
                             <i class="icon candlestick-icon"></i>
                         </div>
                     </div>
                     <div class="incense-block">
-                        <div class="sent-item incense-item" v-for="(item,index) in incenseList" :key="index" :style="item.position">
+                        <div class="sent-item incense-item" v-for="(item,index) in incenseList" :key="index" :style="item.position"  :class="{'active':item.msg}">
                             <i class="icon incense-icon"></i>
                         </div>
                     </div>
@@ -323,7 +275,13 @@
 
         .sent-item{
             opacity: 0;
-            /*transition: opacity 0.3s;*/
+            transition: opacity 0.8s;
+            &.active{
+                opacity: 1;
+            }
+            &.new{
+                transition: none !important;
+            }
         }
         .flower-gift-item{
             transform:translate(369px, 759px);
@@ -385,14 +343,26 @@
             return {
                 token:null,
                 defaultAvatar:require('../images/common/default-avatar.png'),
+                msgList:[],
+
+                infoData:{},
+
                 flowerList:[],
-                candlestick:[],
                 incenseList:[],
-                flowerPosition:{},
-                incensePosition:{},
-                gcandlestickPosition:{},
+                gcandlestickList:[],
 
+                flowerPosition:null,
+                incensePosition:null,
+                gcandlestickPosition:null,
 
+                candidateList:[],
+                barrageList:[],
+
+                oldIds:[],
+
+                initPage:false,
+
+                counter:0,
             }
         },
         methods: {
@@ -400,8 +370,42 @@
                 Vue.api.getWorshipInfo({token:this.token}).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
+                        //
+                        data.totleWorshipCount=data.totleWorshipCount-150;
+                        data.totleFlowerCount=data.totleFlowerCount-50;
+                        data.totleCandleCount=data.totleCandleCount-50;
+                        data.totleCandleCount=data.totleOliCount-50;
+                        this.infoData=data;
+                        //
+                        //
+
+                        this.msgList=data.msgList.reverse();
+                        console.log('this.infoData:',this.infoData);
                         this.token=data.token;
-                        console.log('data:',data);
+                        this.msgList.forEach((item,i)=>{
+                            item.id=item.token+item.timestamp;
+                            let msgStrArr=item.msg.split('献上了');
+                            item.name=msgStrArr[0];
+                            item.gift=msgStrArr[1];
+                        });
+
+                        if(this.barrageList.length==0){
+                            console.log('toInit');
+                            for(let i=0;i<100;i++){
+                                let item=this.msgList[i];
+                                if(item){
+                                    this.addGift(item);
+                                }
+                            }
+                            for(let i=0;i<this.msgList.length;i++){
+                                if(this.oldIds.indexOf(this.msgList[i].id)>-1){
+                                    this.msgList.splice(i,1);
+                                }
+                            }
+                        }else{
+
+                        }
+                        //
                         this.$cookie.set('token',this.token,'120s');
                     }else{
 
@@ -409,59 +413,129 @@
                 });
             },
             doWorship(type) {
+                let typeText='';
+                switch (type){
+                    case 'flower':
+                        typeText='鲜花';
+                        break;
+                    case 'candle':
+                        typeText='香火';
+                        break;
+                    case 'oil':
+                        typeText='香油';
+                        break
+                }
+                let name='网友';
                 let params={
                     token:this.token,
                     type:type,//"flower","candle","oil"
-                    msg:'test'+Math.random(),
+                    msg:name+'献上了'+typeText,
                 }
                 Vue.api.doWorship(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
+                        console.log('data:',data);
+                        let newMsg={
+                            isNew:true,
+                            type:type,
+                            token:params.token,
+                            name:name,
+                            gift:typeText,
+                            timestamp:new Date().getTime(),
+                            msg:params.msg
+                        }
                         if(type=='flower'){
-                            let position=this.flowerList[0].position;
-                            this.flowerPosition={...position};
+                            let temItem=this.flowerList.find((item,i)=>{
+                                return !item.msg;
+                            });
+                            if(!temItem){
+                                this.flowerList[0].msg=null;
+                                temItem=this.flowerList[0];
+                            }
+                            this.flowerPosition={...temItem.position};
                             setTimeout(()=>{
-                                position.opacity=1;
                                 this.flowerPosition=null;
+                                this.addGift(newMsg);
                             },2000);
                         }else if(type=='candle'){
-                            let position=this.incenseList[0].position;
-                            this.incensePosition={...position};
+                            let temItem=this.incenseList.find((item,i)=>{
+                                return !item.msg;
+                            });
+                            if(!temItem){
+                                this.incenseList[0].msg=null;
+                                temItem=this.incenseList[0];
+                            }
+                            this.incensePosition={...temItem.position};
                             setTimeout(()=>{
-                                position.opacity=1;
                                 this.incensePosition=null;
+                                this.addGift(newMsg);
                             },1400);
                         }else if(type=='oil'){
-                            let position=this.candlestick[0].position;
-                            this.gcandlestickPosition={...position};
+                            let temItem=this.gcandlestickList.find((item,i)=>{
+                                return !item.msg;
+                            });
+                            if(!temItem){
+                                this.gcandlestickList[0].msg=null;
+                                temItem=this.gcandlestickList[0];
+                            }
+                            this.gcandlestickPosition={...temItem.position};
                             setTimeout(()=>{
-                                position.opacity=1;
                                 this.gcandlestickPosition=null;
+                                this.addGift(newMsg);
                             },1800);
                         }
-                        console.log('data:',data);
-
                     }else{
 
                     }
                 });
             },
+            addGift:function (item) {
+                if(item){
+                    if(item.type=='flower'){
+                        for(let j=0;j<this.flowerList.length;j++){
+                            if(!this.flowerList[j].msg){
+                                this.flowerList[j].msg=item;
+                                break;
+                            }
+                        }
+                    }else if(item.type=='candle'){
+                        for(let j=0;j<this.incenseList.length;j++){
+                            if(!this.incenseList[j].msg){
+                                this.incenseList[j].msg=item;
+                                break;
+                            }
+                        }
+                    }else if(item.type=='oil'){
+                        for(let j=0;j<this.gcandlestickList.length;j++){
+                            if(!this.gcandlestickList[j].msg){
+                                this.gcandlestickList[j].msg=item;
+                                break;
+                            }
+                        }
+                    }
+                    let random=parseInt(Math.random()*300000);
+                    item.startTime=new Date().getTime()+random;
+                    this.oldIds.push(item.id);
+                    this.barrageList.push(item);
+                    this.infoData.totleWorshipCount++;
+                }
+            },
+            findPosition:function (type) {
+
+            }
         },
         mounted () {
             this.token=this.$cookie.get('token');
             this.token=this.token?this.token:null;
             //
             for(let i=0;i<10;i++){
-                let item={};
                 let x=0;
                 if(i<5){
                     x=58*i;
-                    item.position={transform:'translate('+58*i+'px, 272px)'}
                 }else{
                     x=380+58*i;
-                    item.position={transform:'translate('+(380+58*i)+'px, 272px)'}
                 }
-                this.flowerList.push({position:{transform:'translate('+x+'px, 272px)',active:false}});
+                this.flowerList.push({position:{transform:'translate('+x+'px, 272px)'},msg:null});
             }
             //
             for(let i=0;i<3;i++){
@@ -492,17 +566,49 @@
                     }else{
                         x=xGapDeviator+42*j;
                     }
-                    this.candlestick.push({position:{transform:'translate('+x+'px, '+y+'px)',active:false}})
+                    this.gcandlestickList.push({position:{transform:'translate('+x+'px, '+y+'px)',msg:null}})
                 }
             }
             //
             for(let i=0;i<50;i++){
                 let x=parseInt(Math.random()*(482+1)+218,10);
                 let y=parseInt(Math.random()*(10+1)+422,10);
-                this.incenseList.push({position:{transform:'translate('+x+'px, '+y+'px)',active:false}})
+                this.incenseList.push({position:{transform:'translate('+x+'px, '+y+'px)',msg:null}})
             }
             //
             this.getWorshipInfo();
+            setInterval(()=>{
+                this.getWorshipInfo();
+                if(this.barrageList.length>10){
+                    this.barrageList.splice(10,this.barrageList.length-10);
+                }
+            },60000);
+            //
+            setInterval(()=>{
+                if(this.msgList.length>0){
+                    let item=this.msgList.pop();
+                    this.addGift(item);
+                }
+                if(!(this.counter%10)){
+                    let curTime=new Date().getTime();
+                    this.flowerList.forEach((entry,index)=>{
+                        if(entry.msg&&curTime-entry.msg.startTime>10000){
+                            entry.msg=null;
+                        }
+                    });
+                    this.gcandlestickList.forEach((entry,index)=>{
+                        if(entry.msg&&curTime-entry.msg.startTime>10000){
+                            entry.msg=null;
+                        }
+                    });
+                    this.incenseList.forEach((entry,index)=>{
+                        if(entry.msg&&curTime-entry.msg.startTime>10000){
+                            entry.msg=null;
+                        }
+                    });
+                }
+                this.counter++;
+            },1000);
         },
     }
 </script>
