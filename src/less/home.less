@@ -1,0 +1,460 @@
+.home{
+    .page-content{
+
+    }
+    .worship-title-icon{
+        display: inline-block;
+        background: url("../images/home/mazu-worship-title.png") no-repeat;
+        width: 217px;
+        height: 38px;
+        background-size: 100% 100%;
+    }
+    .panel{
+        .panel-hd{
+
+        }
+        .panel-bd{
+
+        }
+    }
+    .worship-panel{
+        margin-top: 20px;
+        overflow: hidden;
+        .panel-hd{
+            padding: 0px 40px;
+            background: url("../images/common/panel-line.png") no-repeat bottom;
+            width: 100%;
+            background-size: auto auto;
+        }
+        .panel-bd{
+            position: relative;
+            background: url("../images/home/mazu-bg.jpg") no-repeat;
+            margin: 10px auto 0px auto;
+            width: 961px;
+            /* height: 853px;*/
+            height: 900px;
+            overflow: hidden;
+
+        }
+        @keyframes circle-ani
+        {
+            0% {transform: scale(1)}
+            50% {transform: scale(0.95)}
+            100% {transform: scale(1)}
+        }
+        .cirle-icon{
+            position: absolute;
+            top: 20px;
+            left: 0rem;
+            right: 0rem;
+            margin: auto;
+            background: url("../images/home/cirle-icon.png") no-repeat;
+            width: 197px;
+            height: 197px;
+            background-size: 100% 100%;
+            animation:circle-ani 5s infinite;
+        }
+        @keyframes light-ani
+        {
+            0% {transform: rotate(0deg)}
+            50% {transform: rotate(180deg)}
+            100% {transform: rotate(360deg)}
+        }
+        .light-icon{
+            position: absolute;
+            top: -16px;
+            left: 0rem;
+            right: 0rem;
+            margin: auto;
+            background: url("../images/home/light-icon.png") no-repeat;
+            width: 271px;
+            height: 271px;
+            background-size: 100% 100%;
+            animation:light-ani 30s infinite;
+        }
+        .left-potted{
+            position: absolute;
+            top: 490px;
+            left: 214px;
+            background: url("../images/home/left-potted.png") no-repeat;
+            width: 105px;
+            height: 154px;
+            background-size: 100% 100%;
+        }
+        .right-potted{
+            position: absolute;
+            top: 490px;
+            right: 214px;
+            background: url("../images/home/right-potted.png") no-repeat;
+            width: 105px;
+            height: 154px;
+            background-size: 100% 100%;
+        }
+        .merit{
+            position: absolute;
+            bottom: 205px;
+            right: 80px;
+            background: url("../images/home/merit.png") no-repeat;
+            width: 110px;
+            height: 125px;
+            background-size: 100% 100%;
+        }
+        .mazu{
+            position: absolute;
+            top:80px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            background: url("../images/home/mazu.png") no-repeat;
+            width: 433px;
+            height: 569px;
+            background-size: 100% 100%;
+        }
+        @keyframes bottom-cloud-ani
+        {
+            0% {transform: translate(-1650px);opacity: 1}
+            30% {transform: translate(-750px);opacity: 1}
+            100% {transform:translate(900px);opacity: 1}
+        }
+        .bottom-cloud{
+            position: absolute;
+            left: 58px;
+            /* bottom: 70px;*/
+            bottom: 15px;
+            background: url("../images/home/bottom-cloud.png") no-repeat;
+            width: 1712px;
+            height: 180px;
+            background-size: 100% 100%;
+            transform: translate(-1712px);
+            animation:bottom-cloud-ani 150s infinite;
+        }
+        .bottom-cloud2{
+            bottom: 200px;
+            transform: translate(-1750px);
+            animation:bottom-cloud-ani 200s infinite;
+            animation-delay:10s;
+        }
+        .bottom-cloud3{
+            bottom: 180px;
+            transform: translate(-1750px);
+            animation:bottom-cloud-ani 200s infinite;
+            animation-delay:50s;
+        }
+        .bottom-cloud4{
+            bottom: -50px;
+            transform: translate(-1750px);
+            animation:bottom-cloud-ani 200s infinite;
+            animation-delay:30s;
+        }
+        .bottom-cloud-wrap{
+            position: absolute;
+            left: 0px;
+            bottom: 46px;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        /*  .left-right-cloud{
+              position: absolute;
+              left: 0px;
+              right: 0px;
+              bottom: 210px;
+              margin: auto;
+              background: url("../images/home/left-right-cloud.png") no-repeat;
+              width: 961px;
+              height: 179px;
+              background-size: 100% 100%;
+          }
+          .right-cloud{
+              position: absolute;
+              right: 0px;
+              bottom: 210px;
+              margin: auto;
+              background: url("../images/home/right-cloud.png") no-repeat;
+              width: 618px;
+              height: 168px;
+              background-size: 100% 100%;
+          }*/
+        .fire-icon{
+            position: absolute;
+            z-index: 100;
+            top:500px;
+            left: 20px;
+            background: url("../images/home/fire-icon.gif") no-repeat;
+            width: 20px;
+            height: 45px;
+            background-size: 100% 100%;
+        }
+        .smoke-icon{
+            position: absolute;
+            z-index: 100;
+            top:250px;
+            left: 60px;
+            width: 110px;
+            height: 240px;
+            background-size: 100% 100%;
+            border: 1px solid red;
+            background-image: url("../images/home/smoke-icon.gif");
+            mix-blend-mode: screen;
+        }
+        .burner{
+            position: absolute;
+            top:618px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            width: 543px;
+            height: 111px;
+            background-size: 100% 100%;
+
+            background-image: url('../images/home/burner.png');
+        }
+        .number-block{
+            position: absolute;
+            top:0px;
+            left: 10px;
+            .row{
+                background: url("../images/home/counter-bg.png") no-repeat;
+                width: 170px;
+                height: 36px;
+                background-size: 100% 100%;
+                color: #59120b;
+                font-size: 12px;
+                padding: 15px 10px 0px 12px;
+                .strong{
+                    font-size: 14px;
+                    color: #e71719;
+                    font-weight: bold;
+                }
+            }
+        }
+        .data-block{
+            position: absolute;
+            top:10px;
+            right: 10px;
+            background: url("../images/home/data-bg.png") no-repeat;
+            width: 130px;
+            height: 79px;
+            color: #59120b;
+            font-size: 12px;
+            line-height: 17px;
+            padding: 13px 10px 10px 15px;
+            .strong{
+                font-size: 14px;
+                color: #e71719;
+                font-weight: bold;
+            }
+        }
+    }
+    .barrage-block{
+        position: absolute;
+        background: url("../images/home/barrage-bg.png") no-repeat;
+        width: 189px;
+        height: 222px;
+        left: 10px;
+        bottom: 55px;
+        padding: 10px 10px;
+        .block-content{
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        ul{
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            li{
+                margin: 2px 0px;
+                display: flex;
+                align-items: center;
+                img{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                }
+                .text{
+                    padding-left: 5px;
+                    font-size: 12px;
+                    color: #d4d4d4;
+                    .strong{
+                        color: #ddbf6e;
+                    }
+                }
+            }
+        }
+    }
+    .btn-block{
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        z-index: 2;
+        bottom: 10px;
+        margin: auto;
+        width: 380px;
+        height: 182px;
+        .block-content{
+            position: relative;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            background: url("../images/home/counter.png") no-repeat center 88%;
+            background-size: auto;
+        }
+        .btn-list{
+            position: absolute;
+            display: inline-block;
+            width: 100%;
+            left: 0px;
+            bottom: 0px;
+            >li{
+                display: inline-block;
+                width: 80px;
+            }
+        }
+        .worship-icon{
+            display: inline-block;
+            background: url("../images/home/worship-icon.png") no-repeat;
+            width: 135px;
+            height: 49px;
+            background-size: 100% 100%;
+        }
+        .flower-btn{
+            background: url("../images/home/flower-btn.png") no-repeat;
+            width: 59px;
+            height: 137px;
+            background-size: 100% 100%;
+            &:hover,&:active{
+                background: url("../images/home/flower-btn-active.png") no-repeat;
+                width: 74px;
+                height: 151px;
+                background-size: 100% 100%;
+            }
+            &:active{
+                transform: scale(0.95);
+            }
+        }
+        .incense-btn{
+            background: url("../images/home/incense-btn.png") no-repeat;
+            width: 67px;
+            height: 112px;
+            background-size: 100% 100%;
+            &:hover,&:active{
+                background: url("../images/home/incense-btn-active.png") no-repeat;
+                width: 83px;
+                height: 126px;
+                background-size: 100% 100%;
+            }
+            &:active{
+                transform: scale(0.95);
+            }
+        }
+        .candlestick-btn{
+            background: url("../images/home/candlestick-btn.png") no-repeat;
+            width: 42px;
+            height: 128px;
+            background-size: 100% 100%;
+            &:hover,&:active{
+                background: url("../images/home/candlestick-btn-active.png") no-repeat;
+                width: 56px;
+                height: 141px;
+                background-size: 100% 100%;
+            }
+            &:active{
+                transform: scale(0.95);
+            }
+        }
+    }
+    .dialog-block{
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 128px;
+        left: 495px;
+        background: url("../images/home/dialog-panel.png") no-repeat;
+        width: 328px;
+        min-height: 123px;
+        background-size: 100% 100%;
+        font-size: 16px;
+        color: #feeaab;
+        padding: 10px 10px 10px 85px;
+        line-height: 24px;
+        /*  font-family: '隶书';*/
+        transition: opacity 0.3s;
+        &.active{
+            opacity: 1;
+        }
+    }
+    .flower-icon{
+        display: inline-block;
+        background: url("../images/home/flower-icon.png");
+        width: 57px;
+        height: 110px;
+        background-size: 100% 100%;
+    }
+    .gift-item{
+        opacity: 0;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .sent-item{
+        opacity: 0;
+        transition: opacity 0.8s;
+        &.active{
+            opacity: 1;
+        }
+        &.new{
+            transition: none !important;
+        }
+    }
+    .flower-gift-item{
+        transform:translate(369px, 759px);
+        &.active{
+            opacity: 1;
+            transition: transform 2s ease;
+        }
+    }
+    .incense-gift-item{
+        transform:translate(464px, 635px);
+        &.active{
+            opacity: 1;
+            transition: transform 1.4s ease;
+        }
+    }
+    .gcandlestick-gift-item{
+        transform:translate(559px, 780px);
+        &.active{
+            opacity: 1;
+            transition: transform 1.8s ease;
+        }
+    }
+    .flower-item{
+        position: absolute;
+        transform:translate(0px, 272px);
+    }
+    .candlestick-icon{
+        display: inline-block;
+        background: url("../images/home/candlestick-icon.png");
+        width: 30px;
+        height: 67px;
+        background-size: 100% 100%;
+    }
+    .candlestick-item{
+        position: absolute;
+        transform:translate(0px, 375px)
+    }
+    .incense-icon{
+        display: inline-block;
+        background: url("../images/home/incense-icon.png");
+        width: 61px;
+        height: 223px;
+        background-size: 100% 100%;
+    }
+    .incense-item{
+        position: absolute;
+        transform:translate(412px, 429px);
+    }
+}

@@ -1,3 +1,4 @@
+<script src="../../config/index.js"></script>
 <template>
     <div class="cm-page home">
         <div class="cm-container page-content">
@@ -6,6 +7,25 @@
                     <i class="icon title-icon worship-title-icon"></i>
                 </div>
                 <div class="panel-bd">
+                    <i class="icon bottom-cloud bottom-cloud2"></i>
+                    <i class="icon bottom-cloud bottom-cloud3"></i>
+                    <i class="icon cirle-icon"></i>
+                    <i class="icon light-icon"></i>
+                   <!-- <i class="icon left-right-cloud"></i>
+                    <i class="icon right-cloud"></i>-->
+                    <i class="icon left-potted"></i>
+                    <i class="icon right-potted"></i>
+                    <i class="icon merit"></i>
+                    <i class="icon mazu"></i>
+
+                  <!--  <i class="icon fire-icon"></i>
+                    <i class="icon smoke-icon"></i>-->
+
+                    <i class="icon burner"></i>
+                    <div class="bottom-cloud-wrap">
+                        <i class="icon bottom-cloud"></i>
+                        <i class="icon bottom-cloud bottom-cloud4"></i>
+                    </div>
                     <div class="number-block">
                         <div class="row">
                             <p>累计朝拜人次<span class="strong">{{infoData.totleWorshipCount}}</span></p>
@@ -52,8 +72,8 @@
                         <i class="icon incense-icon gift-item incense-gift-item"  :style="incensePosition"  :class="{'active':incensePosition}"></i>
                         <i class="icon candlestick-icon gift-item gcandlestick-gift-item"  :style="gcandlestickPosition"  :class="{'active':gcandlestickPosition}"></i>
                     </div>
-                    <div class="dialog-block">
-                        <span>妈祖作为一个古代汉族民间的神祗，为何她的精神能被海内外、世界上这么多人认可、赞扬和崇敬呢？这里一个重要原因就是。</span>
+                    <div class="dialog-block" :class="{'active':selectedWord}">
+                        {{selectedWord}}
                     </div>
                     <div class="flower-block">
                         <div class="sent-item flower-item" v-for="(item,index) in flowerList" :key="index" :style="item.position" :class="{'active':item.msg}">
@@ -77,260 +97,7 @@
 </template>
 
 <style lang="less" rel="stylesheet/less">
-    .home{
-        .page-content{
 
-        }
-        .worship-title-icon{
-            display: inline-block;
-            background: url("../images/home/mazu-worship-title.png") no-repeat;
-            width: 217px;
-            height: 38px;
-            background-size: 100% 100%;
-        }
-        .panel{
-            .panel-hd{
-
-            }
-            .panel-bd{
-
-            }
-        }
-        .worship-panel{
-            margin-top: 20px;
-            padding-bottom: 40px;
-            .panel-hd{
-                padding: 0px 40px;
-                background: url("../images/common/panel-line.png") no-repeat bottom;
-                width: 100%;
-                background-size: auto auto;
-            }
-            .panel-bd{
-                position: relative;
-                background: url("../images/home/mazu-bg.jpg") no-repeat;
-                margin: 10px auto 0px auto;
-                width: 961px;
-                height: 853px;
-            }
-            .number-block{
-                position: absolute;
-                top:0px;
-                left: 10px;
-                .row{
-                    background: url("../images/home/counter-bg.png") no-repeat;
-                    width: 170px;
-                    height: 36px;
-                    background-size: 100% 100%;
-                    color: #59120b;
-                    font-size: 12px;
-                    padding: 15px 10px 0px 12px;
-                    .strong{
-                        font-size: 14px;
-                        color: #e71719;
-                        font-weight: bold;
-                    }
-                }
-            }
-            .data-block{
-                position: absolute;
-                top:10px;
-                right: 10px;
-                background: url("../images/home/data-bg.png") no-repeat;
-                width: 130px;
-                height: 79px;
-                color: #59120b;
-                font-size: 12px;
-                line-height: 17px;
-                padding: 13px 10px 10px 15px;
-                .strong{
-                    font-size: 14px;
-                    color: #e71719;
-                    font-weight: bold;
-                }
-            }
-        }
-        .barrage-block{
-            position: absolute;
-            background: url("../images/home/barrage-bg.png") no-repeat;
-            width: 189px;
-            height: 222px;
-            left: 10px;
-            bottom: 10px;
-            padding: 10px 10px;
-            .block-content{
-                position: relative;
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-            }
-            ul{
-                position: absolute;
-                left: 0px;
-                bottom: 0px;
-                li{
-                    margin: 2px 0px;
-                    display: flex;
-                    align-items: center;
-                    img{
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                    }
-                    .text{
-                        padding-left: 5px;
-                        font-size: 12px;
-                        color: #d4d4d4;
-                        .strong{
-                            color: #ddbf6e;
-                        }
-                    }
-                }
-            }
-        }
-        .btn-block{
-            position: absolute;
-            left: 0px;
-            right: 0px;
-            z-index: 2;
-            bottom: -40px;
-            margin: auto;
-            width: 380px;
-            height: 182px;
-            .block-content{
-                position: relative;
-                text-align: center;
-                width: 100%;
-                height: 100%;
-                background: url("../images/home/counter.png") no-repeat center 88%;
-                background-size: auto;
-            }
-            .btn-list{
-                position: absolute;
-                display: inline-block;
-                width: 100%;
-                left: 0px;
-                bottom: 0px;
-                >li{
-                    display: inline-block;
-                    &+li{
-                        margin-left: 25px;
-                    }
-                }
-            }
-            .worship-icon{
-                display: inline-block;
-                background: url("../images/home/worship-icon.png") no-repeat;
-                width: 135px;
-                height: 49px;
-                background-size: 100% 100%;
-            }
-            .flower-btn{
-                background: url("../images/home/flower-btn.png") no-repeat;
-                width: 59px;
-                height: 137px;
-                background-size: 100% 100%;
-            }
-            .incense-btn{
-                background: url("../images/home/incense-btn.png") no-repeat;
-                width: 67px;
-                height: 112px;
-                background-size: 100% 100%;
-            }
-            .candlestick-btn{
-                background: url("../images/home/candlestick-btn.png") no-repeat;
-                width: 42px;
-                height: 128px;
-                background-size: 100% 100%;
-            }
-        }
-        .dialog-block{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 128px;
-            left: 495px;
-            background: url("../images/home/dialog-panel.png") no-repeat;
-            width: 328px;
-            height: 123px;
-            background-size: 100% 100%;
-            font-size: 16px;
-            color: #feeaab;
-            padding: 10px 10px 10px 85px;
-            line-height: 24px;
-          /*  font-family: '隶书';*/
-        }
-        .flower-icon{
-            display: inline-block;
-            background: url("../images/home/flower-icon.png");
-            width: 57px;
-            height: 110px;
-            background-size: 100% 100%;
-        }
-        .gift-item{
-            opacity: 0;
-            position: absolute;
-            z-index: 1;
-        }
-
-        .sent-item{
-            opacity: 0;
-            transition: opacity 0.8s;
-            &.active{
-                opacity: 1;
-            }
-            &.new{
-                transition: none !important;
-            }
-        }
-        .flower-gift-item{
-            transform:translate(369px, 759px);
-            &.active{
-                opacity: 1;
-                transition: transform 2s ease;
-            }
-        }
-        .incense-gift-item{
-            transform:translate(464px, 635px);
-            &.active{
-                opacity: 1;
-                transition: transform 1.4s ease;
-            }
-        }
-        .gcandlestick-gift-item{
-            transform:translate(559px, 780px);
-            &.active{
-                opacity: 1;
-                transition: transform 1.8s ease;
-            }
-        }
-        .flower-item{
-            position: absolute;
-            transform:translate(0px, 272px);
-        }
-        .candlestick-icon{
-            display: inline-block;
-            background: url("../images/home/candlestick-icon.png");
-            width: 30px;
-            height: 67px;
-            background-size: 100% 100%;
-        }
-        .candlestick-item{
-            position: absolute;
-            transform:translate(0px, 375px)
-        }
-        .incense-icon{
-            display: inline-block;
-            background: url("../images/home/incense-icon.png");
-            width: 61px;
-            height: 223px;
-            background-size: 100% 100%;
-        }
-        .incense-item{
-            position: absolute;
-            transform:translate(412px, 429px);
-        }
-    }
 </style>
 <script>
     import Vue from 'vue'
@@ -363,6 +130,12 @@
                 initPage:false,
 
                 counter:0,
+
+                wordList:['人生就是一场戏，得失成败由他去。没事不要生闲气，气出病来无人替。保持一个好身体，健康财富一大笔。心情愉快添福气，开心快乐最无敌！',
+                    '半贫半富半足安，半智半愚半圣贤。半有半无半苦乐，半醒半梦半神仙。一个“半”字，恰好找到世间万物的“度”。世间哪有十全事，愿你人生完美只求半。',
+                '人生极为重要的三件事:用宽容的心对待世界，对待生活；用快乐的心创造世界，改变生活；用感恩的心感受世界，感受生活!'],
+                selectedWord:null,
+                wordTimeOut:null,
             }
         },
         methods: {
@@ -371,16 +144,16 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         //
-                        data.totleWorshipCount=data.totleWorshipCount-150;
+                       /* data.totleWorshipCount=data.totleWorshipCount-150;
                         data.totleFlowerCount=data.totleFlowerCount-50;
                         data.totleCandleCount=data.totleCandleCount-50;
-                        data.totleCandleCount=data.totleOliCount-50;
+                        data.totleCandleCount=data.totleOliCount-50;*/
                         this.infoData=data;
                         //
                         //
 
                         this.msgList=data.msgList.reverse();
-                        console.log('this.infoData:',this.infoData);
+                      /*  console.log('this.infoData:',this.infoData);*/
                         this.token=data.token;
                         this.msgList.forEach((item,i)=>{
                             item.id=item.token+item.timestamp;
@@ -407,6 +180,15 @@
                         }
                         //
                         this.$cookie.set('token',this.token,'120s');
+                    }else{
+
+                    }
+                });
+            },
+            getBannerList(){
+                Vue.api.getBannerList({pageIndex:1,pageSize:10}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
                     }else{
 
                     }
@@ -456,6 +238,7 @@
                             setTimeout(()=>{
                                 this.flowerPosition=null;
                                 this.addGift(newMsg);
+                                this.showWord();
                             },2000);
                         }else if(type=='candle'){
                             let temItem=this.incenseList.find((item,i)=>{
@@ -469,6 +252,7 @@
                             setTimeout(()=>{
                                 this.incensePosition=null;
                                 this.addGift(newMsg);
+                                this.showWord();
                             },1400);
                         }else if(type=='oil'){
                             let temItem=this.gcandlestickList.find((item,i)=>{
@@ -482,6 +266,7 @@
                             setTimeout(()=>{
                                 this.gcandlestickPosition=null;
                                 this.addGift(newMsg);
+                                this.showWord();
                             },1800);
                         }
                     }else{
@@ -522,6 +307,15 @@
             },
             findPosition:function (type) {
 
+            },
+            showWord:function () {
+                this.selectedWord=null;
+                clearTimeout(this.wordTimeOut);
+                let index=parseInt(Math.random()*(this.wordList.length),10);
+                this.selectedWord=this.wordList[index];
+                this.wordTimeOut=setTimeout(()=>{
+                    this.selectedWord=null;
+                },10000)
             }
         },
         mounted () {
@@ -609,6 +403,8 @@
                 }
                 this.counter++;
             },1000);
+            //临时测试
+            this.getBannerList();
         },
     }
 </script>

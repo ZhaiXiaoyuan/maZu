@@ -41,7 +41,7 @@ export default {
 
     /**/
     //临时测试
-    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/yecai':'http://zyu-server.wicp.net:12412';
+    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/yecai':'http://www.globalmazu.org:8801';
 /*      let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.yeahcai.com/yecai':'https://api.linqi.tech:34631';*/
 
       function sessionInfo() {
@@ -57,7 +57,7 @@ export default {
         getWorshipInfo:function (params) {
             return Vue.http.ajax({
                 method: 'post',
-                url: basicUrl+'/mazu.worship/worship/getWorshipInfo',
+                url: basicUrl+'/mazu-worship/worship/getWorshipInfo',
                 params: params
             });
         },
@@ -65,7 +65,15 @@ export default {
         doWorship:function (params) {
             return Vue.http.ajax({
                 method: 'post',
-                url: basicUrl+'/mazu.worship/worship/doWorship',
+                url: basicUrl+'/mazu-worship/worship/doWorship',
+                params: params
+            });
+        },
+        //获取banner的分页列表
+        getBannerList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mazu-webConsole/banner/getBannerList',
                 params: params
             });
         },
