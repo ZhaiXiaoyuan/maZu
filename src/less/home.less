@@ -17,6 +17,21 @@
 
         }
     }
+    .banner-panel{
+        width: 100%;
+        height: 250px;
+        background: url("../images/home/banner-bg.jpg") no-repeat center;
+        background-size: cover;
+        .el-carousel{
+            height: 100%;
+        }
+    }
+    @media screen and(min-width: 1500px){
+        .banner-panel{
+            width: 100%;
+            height: 350px;
+        }
+    }
     .worship-panel{
         margin-top: 20px;
         overflow: hidden;
@@ -175,28 +190,6 @@
               height: 168px;
               background-size: 100% 100%;
           }*/
-        .fire-icon{
-            position: absolute;
-            z-index: 100;
-            top:500px;
-            left: 20px;
-            background: url("../images/home/fire-icon.gif") no-repeat;
-            width: 20px;
-            height: 45px;
-            background-size: 100% 100%;
-        }
-        .smoke-icon{
-            position: absolute;
-            z-index: 100;
-            top:250px;
-            left: 60px;
-            width: 110px;
-            height: 240px;
-            background-size: 100% 100%;
-            border: 1px solid red;
-            background-image: url("../images/home/smoke-icon.gif");
-            mix-blend-mode: screen;
-        }
         .burner{
             position: absolute;
             top:618px;
@@ -426,6 +419,9 @@
     }
     .gcandlestick-gift-item{
         transform:translate(559px, 780px);
+        .candlestick-item{
+            position: static;
+        }
         &.active{
             opacity: 1;
             transition: transform 1.8s ease;
@@ -435,16 +431,32 @@
         position: absolute;
         transform:translate(0px, 272px);
     }
-    .candlestick-icon{
-        display: inline-block;
-        background: url("../images/home/candlestick-icon.png");
-        width: 30px;
-        height: 67px;
-        background-size: 100% 100%;
-    }
     .candlestick-item{
+        display: inline-block;
+        width: 30px;
         position: absolute;
-        transform:translate(0px, 375px)
+       /* transform:translate(0px, 375px);*/
+        .wrapper{
+            position: relative;
+            text-align: center;
+        }
+        .fire-icon{
+            position: relative;
+            top:5px;
+            left: 8px;
+            display: block;
+            background: url("../images/home/fire-icon.gif") no-repeat;
+            width: 12px;
+            height: 24px;
+            background-size: 100% 100%;
+        }
+        .candlestick-icon{
+            display: inline-block;
+            background: url("../images/home/candlestick-icon.png");
+            width: 30px;
+            height: 45px;
+            background-size: 100% 100%;
+        }
     }
     .incense-icon{
         display: inline-block;
@@ -453,8 +465,51 @@
         height: 223px;
         background-size: 100% 100%;
     }
+
+    .tem-item{
+        float: left;
+        border: 1px solid blue;
+        display: inline-block;
+        .wrapper{
+            position: relative;
+        }
+    }
+    .smoke-icon{
+        width: 110px;
+        height: 240px;
+        background-size: 100% 100%;
+        background: url("../images/home/smoke-icon.gif");
+        mix-blend-mode: screen;
+        border: 1px solid red;
+    }
+    .stick-icon{
+        position: absolute;
+        display: inline-block;
+        background: url("../images/home/incense-long-icon.png");
+        width: 19px;
+        height: 75px;
+        background-size: 100% 100%;
+        bottom: -100%;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+    }
+
     .incense-item{
         position: absolute;
-        transform:translate(412px, 429px);
+        /*transform:translate(412px, 429px);*/
+      /*  width: 110px;
+        height: 300px;
+        border: 1px solid blue;*/
+        .wrapper{
+            text-align: center;
+        }
+        .smoke-icon{
+            width: 110px;
+            height: 240px;
+            background-size: 100% 100%;
+            background-image: url("../images/home/smoke-icon.gif");
+            mix-blend-mode: screen;
+        }
     }
 }

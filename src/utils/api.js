@@ -44,14 +44,6 @@ export default {
     let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/yecai':'http://www.globalmazu.org:8801';
 /*      let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.yeahcai.com/yecai':'https://api.linqi.tech:34631';*/
 
-      function sessionInfo() {
-          return{
-              token:'',
-              timeStamp:Date.parse(new Date())/1000,
-              random:parseInt(Math.random()*1000000),
-              signature:''
-          }
-      }
     Vue.api={
         //获取统计数据
         getWorshipInfo:function (params) {

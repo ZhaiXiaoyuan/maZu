@@ -3,10 +3,10 @@
         <div class="cm-container header-content">
             <i class="icon logo-icon"></i>
             <ul class="nav-list">
-                <li class="cm-btn active">首页</li>
-                <li>课程学院</li>
-                <li>世界妈祖交流协会</li>
-                <li>妈祖世界</li>
+                <router-link tag="li" :to="{ name: 'home'}" class="cm-btn" :class="{'active':pageName=='home'}">首页</router-link>
+                <router-link tag="li" :to="{ name: 'college'}"  class="cm-btn" :class="{'active':pageName=='college'}">课程学院</router-link>
+                <router-link tag="li" :to="{ name: 'association'}" class="cm-btn" :class="{'active':pageName=='association'}">世界妈祖交流协会</router-link>
+                <router-link tag="li" :to="{ name: 'encyclopedia'}" class="cm-btn" :class="{'active':pageName=='encyclopedia'}">妈祖文化</router-link>
             </ul>
         </div>
     </div>
@@ -59,19 +59,24 @@
     export default {
         data() {
             return {
+                pageName:'home',
                 collapse: false,
                 name: 'linxin',
                 accountInfo:{},
             }
         },
-        computed:{
-
+        watch:{
+            '$route': function(to, from) {
+                this.pageName=this.$route.name;
+            },
         },
         methods:{
 
         },
         created(){
-
+            //
+            this.pageName=this.$route.name;
+            console.log('this.pageName:',this.pageName);
         }
     }
 </script>

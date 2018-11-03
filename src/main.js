@@ -3,9 +3,9 @@ import App from './App';
 import router from './router';
 import vueResource from 'vue-resource';
 import vueCookie from 'vue-cookie'
-//import ElementUI from 'element-ui';
-//import 'element-ui/lib/theme-chalk/index.css';    // 默认主题
-// import '../static/css/theme-green/index.css';       // 浅绿色主题
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';    // 默认主题
+//import '../static/css/theme-green/index.css';       // 浅绿色主题
 //import "babel-polyfill";
 
 import api from './utils/api'
@@ -13,7 +13,7 @@ import tools from './utils/tools'
 import './utils/filters'
 import components from './components'
 
-//Vue.use(ElementUI, { size: 'small' });
+Vue.use(ElementUI, { size: 'small' });
 
 /*---安装第三方插件---*/
 Vue.use(vueResource);

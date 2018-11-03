@@ -117,6 +117,10 @@ body{
 .cm-btn{
     cursor: pointer;
 }
+.cm-disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
 #app{
     position: relative;
     height: auto;
@@ -124,10 +128,27 @@ body{
     padding-top: 50px;
     padding-bottom: 70px;
 }
-.cm-page{
 
-}
 .cm-container{
     width: 1024px;
     margin: 0px auto;
+}
+.cm-history-block{
+    padding: 5px 0px;
+    >li{
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+        color: #5c2507;
+        &:after{
+            content: '>>';
+            padding: 0px 5px 0px 10px;
+        }
+        &.active{
+            color: #850303;
+            &:after{
+                display: none;
+            }
+        }
+    }
 }

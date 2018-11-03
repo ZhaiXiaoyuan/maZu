@@ -1,8 +1,15 @@
-<script src="../../config/index.js"></script>
 <template>
     <div class="cm-page home">
-        <div class="cm-container page-content">
-            <div class="panel worship-panel">
+        <div class="page-content">
+            <div id="map-container" style="width: 50px;height: 50px;position: absolute;z-index: -1000;opacity: 0;"></div>
+            <div class="banner-panel">
+                <el-carousel height="150px">
+                    <el-carousel-item v-for="item in 4" :key="item">
+                      
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="cm-container panel worship-panel">
                 <div class="panel-hd">
                     <i class="icon title-icon worship-title-icon"></i>
                 </div>
@@ -18,8 +25,12 @@
                     <i class="icon merit"></i>
                     <i class="icon mazu"></i>
 
-                  <!--  <i class="icon fire-icon"></i>
-                    <i class="icon smoke-icon"></i>-->
+                 <!--   <div class="tem-item">
+                        <div class="wrapper">
+                            <i class="icon smoke-icon"></i>
+                            <i class="icon stick-icon"></i>
+                        </div>
+                    </div>-->
 
                     <i class="icon burner"></i>
                     <div class="bottom-cloud-wrap">
@@ -31,7 +42,7 @@
                             <p>累计朝拜人次<span class="strong">{{infoData.totleWorshipCount}}</span></p>
                         </div>
                         <div class="row">
-                            <p>当前<span class="strong">{{infoData.currentOnlineCount}}</span>人正在朝拜妈祖</p>
+                            <p>当前<span class="strong">{{onlineCount}}</span>人正在朝拜妈祖</p>
                         </div>
                     </div>
                     <div class="data-block">
@@ -55,13 +66,13 @@
                         <div class="block-content">
                             <i class="icon worship-icon"></i>
                             <ul class="btn-list">
-                                <li class="cm-btn">
+                                <li class="cm-btn" :class="{'cm-disabled':!worshipLimit.flower}">
                                     <i class="icon flower-btn"  @click="doWorship('flower')"></i>
                                 </li>
-                                <li class="cm-btn">
+                                <li class="cm-btn" :class="{'cm-disabled':!worshipLimit.incense}">
                                     <i class="icon incense-btn"  @click="doWorship('candle')"></i>
                                 </li>
-                                <li class="cm-btn">
+                                <li class="cm-btn" :class="{'cm-disabled':!worshipLimit.oil}">
                                     <i class="icon candlestick-btn" @click="doWorship('oil')"></i>
                                 </li>
                             </ul>
@@ -70,7 +81,14 @@
                     <div class="gift-item-block">
                         <i class="icon flower-icon gift-item flower-gift-item" :style="flowerPosition" :class="{'active':flowerPosition}"></i>
                         <i class="icon incense-icon gift-item incense-gift-item"  :style="incensePosition"  :class="{'active':incensePosition}"></i>
-                        <i class="icon candlestick-icon gift-item gcandlestick-gift-item"  :style="gcandlestickPosition"  :class="{'active':gcandlestickPosition}"></i>
+                        <div class="gift-item gcandlestick-gift-item" :style="gcandlestickPosition"  :class="{'active':gcandlestickPosition}">
+                            <div class="candlestick-item">
+                                <div class="wrapper">
+                                    <i class="icon fire-icon"></i>
+                                    <i class="icon candlestick-icon"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="dialog-block" :class="{'active':selectedWord}">
                         {{selectedWord}}
@@ -82,12 +100,18 @@
                     </div>
                     <div class="candlestick-block">
                         <div class="sent-item candlestick-item" v-for="(item,index) in gcandlestickList" :key="index" :style="item.position"  :class="{'active':item.msg}">
-                            <i class="icon candlestick-icon"></i>
+                            <div class="wrapper">
+                                <i class="icon fire-icon"></i>
+                                <i class="icon candlestick-icon"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="incense-block">
                         <div class="sent-item incense-item" v-for="(item,index) in incenseList" :key="index" :style="item.position"  :class="{'active':item.msg}">
-                            <i class="icon incense-icon"></i>
+                            <div class="wrapper">
+                                <!--<i class="icon smoke-icon"></i>-->
+                                <i class="icon incense-icon"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -136,6 +160,16 @@
                 '人生极为重要的三件事:用宽容的心对待世界，对待生活；用快乐的心创造世界，改变生活；用感恩的心感受世界，感受生活!'],
                 selectedWord:null,
                 wordTimeOut:null,
+
+                onlineCountGap:0,
+                onlineCount:0,
+
+                worshipLimit:{
+                    flower:1,
+                    incense:1,
+                    oil:1,
+                },
+                userPosition:null,
             }
         },
         methods: {
@@ -144,35 +178,53 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         //
-                       /* data.totleWorshipCount=data.totleWorshipCount-150;
-                        data.totleFlowerCount=data.totleFlowerCount-50;
-                        data.totleCandleCount=data.totleCandleCount-50;
-                        data.totleCandleCount=data.totleOliCount-50;*/
                         this.infoData=data;
+                        console.log('this.infoData:',this.infoData);
                         //
                         //
 
-                        this.msgList=data.msgList.reverse();
+                        let list=data.msgList.reverse();
                       /*  console.log('this.infoData:',this.infoData);*/
                         this.token=data.token;
-                        this.msgList.forEach((item,i)=>{
+                        this.onlineCountGap=data.currentOnlineCount-data.LastMinOnlineCount;
+                        if(this.onlineCountGap>0){
+                            this.onlineCount=this.LastMinOnlineCount;
+                        }else{
+                            this.onlineCount=data.currentOnlineCount;
+                        }
+                        //
+                        this.msgList=[];
+                        let newFlowerCount=0;
+                        let newCandleCount=0;
+                        let newOilcCount=0;
+                        list.forEach((item,i)=>{
                             item.id=item.token+item.timestamp;
                             let msgStrArr=item.msg.split('献上了');
                             item.name=msgStrArr[0];
                             item.gift=msgStrArr[1];
-                        });
-
-                        if(this.barrageList.length==0){
-                            console.log('toInit');
-                            for(let i=0;i<100;i++){
-                                let item=this.msgList[i];
-                                if(item){
-                                    this.addGift(item);
+                            if(this.oldIds.indexOf(item.id)==-1){
+                                this.msgList.push(item);
+                                if(item.type=='flower'){
+                                    newFlowerCount++;
+                                }else if(item.type=='candle'){
+                                    newCandleCount++;
+                                }else if(item.type=='oil'){
+                                    newOilcCount++;
                                 }
                             }
-                            for(let i=0;i<this.msgList.length;i++){
-                                if(this.oldIds.indexOf(this.msgList[i].id)>-1){
-                                    this.msgList.splice(i,1);
+                        });
+                        this.infoData.totleFlowerCount-=newFlowerCount;
+                        this.infoData.totleCandleCount-=newCandleCount;
+                        this.infoData.totleOliCount-=newOilcCount;
+                        //
+                        this.infoData.totleWorshipCount-=this.msgList.length;
+                        //
+                        if(this.barrageList.length==0){
+                            console.log('toInit');
+                            for(let i=0;i<10;i++){
+                                let item=this.msgList.pop();
+                                if(item){
+                                    this.addGift(item);
                                 }
                             }
                         }else{
@@ -180,15 +232,6 @@
                         }
                         //
                         this.$cookie.set('token',this.token,'120s');
-                    }else{
-
-                    }
-                });
-            },
-            getBannerList(){
-                Vue.api.getBannerList({pageIndex:1,pageSize:10}).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        let data=JSON.parse(resp.respMsg);
                     }else{
 
                     }
@@ -207,11 +250,11 @@
                         typeText='香油';
                         break
                 }
-                let name='网友';
+                let name=this.userPosition?this.userPosition.city+'网友':'网友';
                 let params={
                     token:this.token,
                     type:type,//"flower","candle","oil"
-                    msg:name+'献上了'+typeText,
+                    msg:name+'的献上了'+typeText,
                 }
                 Vue.api.doWorship(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -227,6 +270,7 @@
                             msg:params.msg
                         }
                         if(type=='flower'){
+                            this.worshipLimit.flower--;
                             let temItem=this.flowerList.find((item,i)=>{
                                 return !item.msg;
                             });
@@ -241,6 +285,7 @@
                                 this.showWord();
                             },2000);
                         }else if(type=='candle'){
+                            this.worshipLimit.incense--;
                             let temItem=this.incenseList.find((item,i)=>{
                                 return !item.msg;
                             });
@@ -255,6 +300,7 @@
                                 this.showWord();
                             },1400);
                         }else if(type=='oil'){
+                            this.worshipLimit.oil--;
                             let temItem=this.gcandlestickList.find((item,i)=>{
                                 return !item.msg;
                             });
@@ -269,6 +315,8 @@
                                 this.showWord();
                             },1800);
                         }
+                        //
+                        this.$cookie.set('worshipLimit',JSON.stringify(this.worshipLimit),'24h');
                     }else{
 
                     }
@@ -280,6 +328,7 @@
                         for(let j=0;j<this.flowerList.length;j++){
                             if(!this.flowerList[j].msg){
                                 this.flowerList[j].msg=item;
+                                this.infoData.totleFlowerCount++;
                                 break;
                             }
                         }
@@ -287,6 +336,7 @@
                         for(let j=0;j<this.incenseList.length;j++){
                             if(!this.incenseList[j].msg){
                                 this.incenseList[j].msg=item;
+                                this.infoData.totleCandleCount++;
                                 break;
                             }
                         }
@@ -294,6 +344,7 @@
                         for(let j=0;j<this.gcandlestickList.length;j++){
                             if(!this.gcandlestickList[j].msg){
                                 this.gcandlestickList[j].msg=item;
+                                this.infoData.totleOliCount++;
                                 break;
                             }
                         }
@@ -319,8 +370,16 @@
             }
         },
         mounted () {
+            //
+            let that=this;
+            //
             this.token=this.$cookie.get('token');
             this.token=this.token?this.token:null;
+            //
+            let worshipLimit=this.$cookie.get('worshipLimit');
+            if(worshipLimit){
+                this.worshipLimit=JSON.parse(worshipLimit);
+            }
             //
             for(let i=0;i<10;i++){
                 let x=0;
@@ -338,17 +397,17 @@
                 let xGapDeviator=434;
                 switch (i){
                     case 0:
-                        y=375;
+                        y=373;
                         xDeviator=25;
                         xGapDeviator=xGapDeviator+5;
                         break;
                     case 1:
-                        y=415;
+                        y=413;
                         xDeviator=15;
                         xGapDeviator=xGapDeviator+15;
                         break;
                     case 2:
-                        y=460;
+                        y=458;
                         xDeviator=5;
                         xGapDeviator=xGapDeviator+25;
                         break;
@@ -382,29 +441,54 @@
                 if(this.msgList.length>0){
                     let item=this.msgList.pop();
                     this.addGift(item);
-                }
-                if(!(this.counter%10)){
-                    let curTime=new Date().getTime();
-                    this.flowerList.forEach((entry,index)=>{
-                        if(entry.msg&&curTime-entry.msg.startTime>10000){
-                            entry.msg=null;
+                    //
+                    if(!(this.counter%10)){
+                        let curTime=new Date().getTime();
+                        this.flowerList.forEach((entry,index)=>{
+                            if(entry.msg&&curTime-entry.msg.startTime>10000){
+                                entry.msg=null;
+                            }
+                        });
+                        this.gcandlestickList.forEach((entry,index)=>{
+                            if(entry.msg&&curTime-entry.msg.startTime>10000){
+                                entry.msg=null;
+                            }
+                        });
+                        this.incenseList.forEach((entry,index)=>{
+                            if(entry.msg&&curTime-entry.msg.startTime>10000){
+                                entry.msg=null;
+                            }
+                        });
+                        //
+                        if(this.onlineCountGap){
+                            this.onlineCountGap--;
+                            this.onlineCount++;
                         }
-                    });
-                    this.gcandlestickList.forEach((entry,index)=>{
-                        if(entry.msg&&curTime-entry.msg.startTime>10000){
-                            entry.msg=null;
-                        }
-                    });
-                    this.incenseList.forEach((entry,index)=>{
-                        if(entry.msg&&curTime-entry.msg.startTime>10000){
-                            entry.msg=null;
-                        }
-                    });
+                    }
                 }
                 this.counter++;
-            },1000);
-            //临时测试
-            this.getBannerList();
+            },2000);
+            //高德地图获取城市信息
+            window.onLoad  = function(){
+                let mapObj = new AMap.Map('map-container');
+                mapObj.plugin('AMap.CitySearch', ()=>{
+                    let citySearch = new AMap.CitySearch({});
+                    mapObj.addControl(citySearch);
+                    citySearch.getLocalCity();
+                    AMap.event.addListener(citySearch, 'complete', (data)=>{
+                        that.userPosition=data;
+                        /*console.log('position:',data);*/
+                    });//返回定位信息
+                    AMap.event.addListener(citySearch, 'error', (error)=>{
+                        /*console.log('error:',error);*/
+                    });      //返回定位出错信息
+                });
+            }
+            var url = 'https://webapi.amap.com/maps?v=1.4.10&key=b7164700b52c20d7458ee82630a22122&callback=onLoad';
+            var jsapi = document.createElement('script');
+            jsapi.charset = 'utf-8';
+            jsapi.src = url;
+            document.head.appendChild(jsapi);
         },
     }
 </script>
