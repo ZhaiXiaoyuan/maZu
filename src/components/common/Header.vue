@@ -1,17 +1,17 @@
 <template>
-    <div class="header">
+    <div class="header" id="header">
         <div class="cm-container header-content">
             <i class="icon logo-icon"></i>
             <ul class="nav-list">
                 <router-link tag="li" :to="{ name: 'home'}" class="cm-btn" :class="{'active':pageName=='home'}">首页</router-link>
-                <router-link tag="li" :to="{ name: 'college'}"  class="cm-btn" :class="{'active':pageName=='college'}">课程学院</router-link>
                 <router-link tag="li" :to="{ name: 'association'}" class="cm-btn" :class="{'active':pageName=='association'}">世界妈祖交流协会</router-link>
                 <router-link tag="li" :to="{ name: 'encyclopedia'}" class="cm-btn" :class="{'active':pageName=='encyclopedia'}">妈祖文化</router-link>
+                <router-link tag="li" :to="{ name: 'college'}"  class="cm-btn" :class="{'active':pageName=='college'}">课程学院</router-link>
             </ul>
         </div>
     </div>
 </template>
-<style lang="less" rel="stylesheet/less" scoped>
+<style lang="less" rel="stylesheet/less">
     .header{
         position: fixed;
         z-index: 200;
@@ -20,6 +20,8 @@
         height: 50px;
         width: 100%;
         background: url("../../images/common/header.jpg") repeat-x;
+        transition: top 0.8s;
+        overflow: hidden;
         .header-content{
             position: relative;
             height: 100%;
@@ -42,7 +44,7 @@
                 line-height: 50px;
                 font-size: 18px;
                 color: #000;
-                font-family: '隶书';
+                font-family: 'LiSu';
                 color: #000;
                 &.active{
                     background: url("../../images/common/nav-active-icon.png") no-repeat center;

@@ -3,9 +3,9 @@
         <div class="page-content">
             <div id="map-container" style="width: 50px;height: 50px;position: absolute;z-index: -1000;opacity: 0;"></div>
             <div class="banner-panel">
-                <el-carousel height="150px">
+                <el-carousel height="100%">
                     <el-carousel-item v-for="item in 4" :key="item">
-                      
+
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -25,7 +25,7 @@
                     <i class="icon merit"></i>
                     <i class="icon mazu"></i>
 
-                 <!--   <div class="tem-item">
+                  <!--  <div class="tem-item">
                         <div class="wrapper">
                             <i class="icon smoke-icon"></i>
                             <i class="icon stick-icon"></i>
@@ -56,7 +56,7 @@
                                <li v-for="(item,index) in barrageList" :key="index">
                                    <img :src="defaultAvatar" alt="">
                                    <div class="text">
-                                       <p><span class="strong">{{item.name}}</span>献上了<span class="strong">{{item.gift}}</span></p>
+                                       <p v-html="item.msg"></p>
                                    </div>
                                </li>
                            </ul>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="btn-block">
                         <div class="block-content">
-                            <i class="icon worship-icon"></i>
+                            <i class="cm-btn icon worship-icon" @click="doWorship('worshipAction')"></i>
                             <ul class="btn-list">
                                 <li class="cm-btn" :class="{'cm-disabled':!worshipLimit.flower}">
                                     <i class="icon flower-btn"  @click="doWorship('flower')"></i>
@@ -136,7 +136,12 @@
                 defaultAvatar:require('../images/common/default-avatar.png'),
                 msgList:[],
 
-                infoData:{},
+                infoData:{
+                    totleWorshipCount:0,
+                    totleFlowerCount:0,
+                    totleCandleCount:0,
+                    totleOliCount:0
+                },
 
                 flowerList:[],
                 incenseList:[],
@@ -170,6 +175,12 @@
                     oil:1,
                 },
                 userPosition:null,
+
+                defaultCount:30,
+
+                winWidth:document.documentElement.scrollWidth,
+
+                handling:false,
             }
         },
         methods: {
@@ -178,17 +189,13 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         //
-                        this.infoData=data;
-                        console.log('this.infoData:',this.infoData);
-                        //
-                        //
 
                         let list=data.msgList.reverse();
-                      /*  console.log('this.infoData:',this.infoData);*/
+                     /*   console.log('this.data:',data);*/
                         this.token=data.token;
                         this.onlineCountGap=data.currentOnlineCount-data.LastMinOnlineCount;
                         if(this.onlineCountGap>0){
-                            this.onlineCount=this.LastMinOnlineCount;
+                            this.onlineCount=data.LastMinOnlineCount;
                         }else{
                             this.onlineCount=data.currentOnlineCount;
                         }
@@ -197,11 +204,13 @@
                         let newFlowerCount=0;
                         let newCandleCount=0;
                         let newOilcCount=0;
+                        let temList=[];
                         list.forEach((item,i)=>{
                             item.id=item.token+item.timestamp;
-                            let msgStrArr=item.msg.split('献上了');
+                           /* let msgStrArr=item.msg.split('献上了');
                             item.name=msgStrArr[0];
-                            item.gift=msgStrArr[1];
+                            item.gift=msgStrArr[1];*/
+                            temList.push(item);
                             if(this.oldIds.indexOf(item.id)==-1){
                                 this.msgList.push(item);
                                 if(item.type=='flower'){
@@ -213,18 +222,24 @@
                                 }
                             }
                         });
-                        this.infoData.totleFlowerCount-=newFlowerCount;
-                        this.infoData.totleCandleCount-=newCandleCount;
-                        this.infoData.totleOliCount-=newOilcCount;
+
                         //
-                        this.infoData.totleWorshipCount-=this.msgList.length;
+                        this.infoData.totleWorshipCount=data.totleWorshipCount-this.msgList.length;
+                        this.infoData.totleFlowerCount=data.totleFlowerCount-newFlowerCount;
+                        this.infoData.totleCandleCount=data.totleCandleCount-newCandleCount;
+                        this.infoData.totleOliCount=data.totleOliCount-newOilcCount;
                         //
                         if(this.barrageList.length==0){
                             console.log('toInit');
-                            for(let i=0;i<10;i++){
+                            let virtualFlag=false;
+                            if(this.msgList.length==0){
+                                virtualFlag=true;
+                                this.msgList=temList.slice(0,temList.length>this.defaultCount?this.defaultCount:temList.length);
+                            }
+                            for(let i=0;i<this.defaultCount;i++){
                                 let item=this.msgList.pop();
                                 if(item){
-                                    this.addGift(item);
+                                    this.addGift(item,virtualFlag);
                                 }
                             }
                         }else{
@@ -238,23 +253,31 @@
                 });
             },
             doWorship(type) {
-                let typeText='';
-                switch (type){
-                    case 'flower':
-                        typeText='鲜花';
-                        break;
-                    case 'candle':
-                        typeText='香火';
-                        break;
-                    case 'oil':
-                        typeText='香油';
-                        break
+                if(this.handling){
+                    return;
+                }else{
+                    this.handling=true;
                 }
                 let name=this.userPosition?this.userPosition.city+'网友':'网友';
+                let typeText='';
+                switch (type){
+                    case 'worshipAction':
+                        typeText='<span>'+name+'</span>朝拜了妈祖';
+                        break;
+                    case 'flower':
+                        typeText='<span>'+name+'</span>献上了<span>鲜花</span>';
+                        break;
+                    case 'candle':
+                        typeText='<span>'+name+'</span>献上了<span>香火</span>';
+                        break;
+                    case 'oil':
+                        typeText='<span>'+name+'</span>献上了<span>香油</span>';
+                        break
+                }
                 let params={
                     token:this.token,
                     type:type,//"flower","candle","oil"
-                    msg:name+'的献上了'+typeText,
+                    msg:typeText,
                 }
                 Vue.api.doWorship(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -269,8 +292,11 @@
                             timestamp:new Date().getTime(),
                             msg:params.msg
                         }
-                        if(type=='flower'){
-                            this.worshipLimit.flower--;
+                        if(type=='worshipAction'){
+                            this.addGift(newMsg);
+                            this.showWord();
+                        }else if(type=='flower'){
+                            /*this.worshipLimit.flower--;*/
                             let temItem=this.flowerList.find((item,i)=>{
                                 return !item.msg;
                             });
@@ -285,7 +311,7 @@
                                 this.showWord();
                             },2000);
                         }else if(type=='candle'){
-                            this.worshipLimit.incense--;
+                           /* this.worshipLimit.incense--;*/
                             let temItem=this.incenseList.find((item,i)=>{
                                 return !item.msg;
                             });
@@ -300,7 +326,7 @@
                                 this.showWord();
                             },1400);
                         }else if(type=='oil'){
-                            this.worshipLimit.oil--;
+                          /*  this.worshipLimit.oil--;*/
                             let temItem=this.gcandlestickList.find((item,i)=>{
                                 return !item.msg;
                             });
@@ -316,13 +342,13 @@
                             },1800);
                         }
                         //
-                        this.$cookie.set('worshipLimit',JSON.stringify(this.worshipLimit),'24h');
+                       /* this.$cookie.set('worshipLimit',JSON.stringify(this.worshipLimit),'24h');*/
                     }else{
 
                     }
                 });
             },
-            addGift:function (item) {
+            addGift:function (item,virtualFlag) {
                 if(item){
                     if(item.type=='flower'){
                         for(let j=0;j<this.flowerList.length;j++){
@@ -336,7 +362,9 @@
                         for(let j=0;j<this.incenseList.length;j++){
                             if(!this.incenseList[j].msg){
                                 this.incenseList[j].msg=item;
-                                this.infoData.totleCandleCount++;
+                                if(!virtualFlag){
+                                    this.infoData.totleCandleCount++;
+                                }
                                 break;
                             }
                         }
@@ -344,22 +372,28 @@
                         for(let j=0;j<this.gcandlestickList.length;j++){
                             if(!this.gcandlestickList[j].msg){
                                 this.gcandlestickList[j].msg=item;
-                                this.infoData.totleOliCount++;
+                                if(!virtualFlag){
+                                    this.infoData.totleOliCount++;
+                                }
                                 break;
                             }
                         }
                     }
                     let random=parseInt(Math.random()*300000);
                     item.startTime=new Date().getTime()+random;
-                    this.oldIds.push(item.id);
                     this.barrageList.push(item);
-                    this.infoData.totleWorshipCount++;
+                    if(!virtualFlag){
+                        this.oldIds.push(item.id);
+                        localStorage.setItem('oldIds',JSON.stringify(this.oldIds));
+                        this.infoData.totleWorshipCount++;
+                    }
                 }
             },
             findPosition:function (type) {
 
             },
             showWord:function () {
+                this.handling=false;
                 this.selectedWord=null;
                 clearTimeout(this.wordTimeOut);
                 let index=parseInt(Math.random()*(this.wordList.length),10);
@@ -367,6 +401,18 @@
                 this.wordTimeOut=setTimeout(()=>{
                     this.selectedWord=null;
                 },10000)
+            },
+            getScrollTop:function () {
+                let sTop=null;
+                if (document.compatMode == "BackCompat")
+                {
+                    sTop = document.body.scrollTop;
+                }
+                else
+                {
+                    sTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+                }
+                return sTop;
             }
         },
         mounted () {
@@ -376,38 +422,70 @@
             this.token=this.$cookie.get('token');
             this.token=this.token?this.token:null;
             //
-            let worshipLimit=this.$cookie.get('worshipLimit');
+          /*  let worshipLimit=this.$cookie.get('worshipLimit');
             if(worshipLimit){
                 this.worshipLimit=JSON.parse(worshipLimit);
+            }*/
+            //
+            let oldIds=localStorage.getItem('oldIds');
+            if(oldIds){
+                oldIds=JSON.parse(oldIds);
+                if(oldIds.length>200){
+                    oldIds.splice(200,oldIds.length-200);
+                }
+                this.oldIds=oldIds;
+            };
+            //
+            let flowerSizeNum1=58;
+            let flowerSizeNum2=380;
+            let flowerSizeNum3=272;
+            let gcandlestickSizeNum1=434;
+            let gcandlestickSizeNum2=373;
+            let gcandlestickSizeNum3=40;
+            let gcandlestickSizeNum4=42;
+            let incenseSizeNum1=482;
+            let incenseSizeNum2=218;
+            let incenseSizeNum3=422;
+            if(this.winWidth<1600){
+                flowerSizeNum1=45;
+                flowerSizeNum2=300;
+                flowerSizeNum3=230;
+                gcandlestickSizeNum1=338;
+                gcandlestickSizeNum2=287;
+                gcandlestickSizeNum3=32;
+                gcandlestickSizeNum4=32;
+                incenseSizeNum1=371;
+                incenseSizeNum2=167;
+                incenseSizeNum3=314;
             }
             //
             for(let i=0;i<10;i++){
                 let x=0;
                 if(i<5){
-                    x=58*i;
+                    x=flowerSizeNum1*i;
                 }else{
-                    x=380+58*i;
+                    x=flowerSizeNum2+flowerSizeNum1*i;
                 }
-                this.flowerList.push({position:{transform:'translate('+x+'px, 272px)'},msg:null});
+                this.flowerList.push({position:{transform:'translate('+x+'px, '+flowerSizeNum3+'px)'},msg:null});
             }
             //
             for(let i=0;i<3;i++){
                 let y=0;
                 let xDeviator=0;
-                let xGapDeviator=434;
+                let xGapDeviator=gcandlestickSizeNum1;
                 switch (i){
                     case 0:
-                        y=373;
+                        y=gcandlestickSizeNum2;
                         xDeviator=25;
                         xGapDeviator=xGapDeviator+5;
                         break;
                     case 1:
-                        y=413;
+                        y=gcandlestickSizeNum2+gcandlestickSizeNum3;
                         xDeviator=15;
                         xGapDeviator=xGapDeviator+15;
                         break;
                     case 2:
-                        y=458;
+                        y=gcandlestickSizeNum2+gcandlestickSizeNum3*2+4;
                         xDeviator=5;
                         xGapDeviator=xGapDeviator+25;
                         break;
@@ -415,17 +493,17 @@
                 for(let j=0;j<12;j++){
                     let x=0;
                     if(j<6){
-                        x=xDeviator+42*j;
+                        x=xDeviator+gcandlestickSizeNum4*j;
                     }else{
-                        x=xGapDeviator+42*j;
+                        x=xGapDeviator+gcandlestickSizeNum4*j;
                     }
                     this.gcandlestickList.push({position:{transform:'translate('+x+'px, '+y+'px)',msg:null}})
                 }
             }
             //
             for(let i=0;i<50;i++){
-                let x=parseInt(Math.random()*(482+1)+218,10);
-                let y=parseInt(Math.random()*(10+1)+422,10);
+                let x=parseInt(Math.random()*(incenseSizeNum1+1)+incenseSizeNum2,10);
+                let y=parseInt(Math.random()*(10+1)+incenseSizeNum3,10);
                 this.incenseList.push({position:{transform:'translate('+x+'px, '+y+'px)',msg:null}})
             }
             //
@@ -489,6 +567,17 @@
             jsapi.charset = 'utf-8';
             jsapi.src = url;
             document.head.appendChild(jsapi);
+            //
+            //监听滚动事件
+            let headerTarget=document.getElementById('header');
+            document.body.addEventListener('scroll' , function(){
+                let winTop = that.getScrollTop();//当前滚动条的高度
+                if(winTop>150){
+                    headerTarget.style.top='-100%';
+                }else{
+                    headerTarget.style.top='0%';
+                }
+            })
         },
     }
 </script>

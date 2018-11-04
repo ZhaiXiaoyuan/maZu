@@ -19,17 +19,11 @@
     }
     .banner-panel{
         width: 100%;
-        height: 250px;
+        height: 320px;
         background: url("../images/home/banner-bg.jpg") no-repeat center;
         background-size: cover;
         .el-carousel{
             height: 100%;
-        }
-    }
-    @media screen and(min-width: 1500px){
-        .banner-panel{
-            width: 100%;
-            height: 350px;
         }
     }
     .worship-panel{
@@ -49,6 +43,7 @@
             /* height: 853px;*/
             height: 900px;
             overflow: hidden;
+            background-size: 100% auto;
 
         }
         @keyframes circle-ani
@@ -169,27 +164,6 @@
             height: 300px;
             overflow: hidden;
         }
-        /*  .left-right-cloud{
-              position: absolute;
-              left: 0px;
-              right: 0px;
-              bottom: 210px;
-              margin: auto;
-              background: url("../images/home/left-right-cloud.png") no-repeat;
-              width: 961px;
-              height: 179px;
-              background-size: 100% 100%;
-          }
-          .right-cloud{
-              position: absolute;
-              right: 0px;
-              bottom: 210px;
-              margin: auto;
-              background: url("../images/home/right-cloud.png") no-repeat;
-              width: 618px;
-              height: 168px;
-              background-size: 100% 100%;
-          }*/
         .burner{
             position: absolute;
             top:618px;
@@ -270,7 +244,7 @@
                     padding-left: 5px;
                     font-size: 12px;
                     color: #d4d4d4;
-                    .strong{
+                    span{
                         color: #ddbf6e;
                     }
                 }
@@ -282,7 +256,7 @@
         left: 0px;
         right: 0px;
         z-index: 2;
-        bottom: 10px;
+        bottom: 15px;
         margin: auto;
         width: 380px;
         height: 182px;
@@ -305,12 +279,32 @@
                 width: 80px;
             }
         }
+        @keyframes worship-ani{
+            0%{
+                box-shadow: 0px 0px 25px #ffe400;
+                opacity: 0.9;
+            }
+            50%{
+                box-shadow: 1px 1px 2px #ffe400;
+                opacity: 1;
+            }
+            100%{
+                box-shadow: 0px 0px 25px #ffe400;
+                opacity: 0.9;
+            }
+        }
         .worship-icon{
             display: inline-block;
             background: url("../images/home/worship-icon.png") no-repeat;
             width: 135px;
             height: 49px;
             background-size: 100% 100%;
+            box-shadow: 0px 0px 10px #ffe400;
+            animation:worship-ani 1.2s infinite;
+            transition: transform 0.3s;
+            &:active{
+                transform: scale(0.95);
+            }
         }
         .flower-btn{
             background: url("../images/home/flower-btn.png") no-repeat;
@@ -468,6 +462,7 @@
 
     .tem-item{
         float: left;
+        margin: 100px;
         border: 1px solid blue;
         display: inline-block;
         .wrapper{
@@ -475,12 +470,11 @@
         }
     }
     .smoke-icon{
-        width: 110px;
-        height: 240px;
+        width: 50px;
+        height: 120px;
         background-size: 100% 100%;
         background: url("../images/home/smoke-icon.gif");
-        mix-blend-mode: screen;
-        border: 1px solid red;
+        background-size: 100% 100%;
     }
     .stick-icon{
         position: absolute;
@@ -510,6 +504,274 @@
             background-size: 100% 100%;
             background-image: url("../images/home/smoke-icon.gif");
             mix-blend-mode: screen;
+        }
+    }
+    @media screen and(max-width: 1600px){
+        .banner-panel{
+            width: 100%;
+            height: 220px;
+        }
+      /*  .worship-panel{
+            .panel-bd{
+                transform: scale(0.8);
+            }
+        }*/
+        .worship-panel{
+            .panel-bd{
+                width: 747px;
+                height: 700px;
+            }
+            .cirle-icon{
+                top: 27px;
+                width: 151px;
+                height: 151px;
+            }
+            .light-icon{
+                position: absolute;
+                top: 2px;
+                width: 208px;
+                height: 208px;
+            }
+            .left-potted{
+                position: absolute;
+                top: 395px;
+                left: 168px;
+                background: url("../images/home/left-potted.png") no-repeat;
+                width: 80px;
+                height: 118px;
+                background-size: 100% 100%;
+            }
+            .right-potted{
+                position: absolute;
+                top: 395px;
+                right: 168px;
+                background: url("../images/home/right-potted.png") no-repeat;
+                width: 80px;
+                height: 118px;
+                background-size: 100% 100%;
+            }
+            .merit{
+                position: absolute;
+                bottom: 157px;
+                right: 64px;
+                width: 84px;
+                height: 96px;
+            }
+            .mazu{
+                top:80px;
+                background: url("../images/home/mazu.png") no-repeat;
+                width: 333px;
+                height: 438px;
+                background-size: 100% 100%;
+            }
+            .dialog-block{
+                top: 107px;
+                left: 385px;
+            }
+            .bottom-cloud{
+                position: absolute;
+                left: 44px;
+                bottom: 12px;
+                background: url("../images/home/bottom-cloud.png") no-repeat;
+                width: 1318px;
+                height: 138px;
+                background-size: 100% 100%;
+                transform: translate(-1318px);
+                animation:bottom-cloud-ani 115s infinite;
+            }
+            .bottom-cloud2{
+                bottom: 154px;
+                transform: translate(-1318px);
+                animation:bottom-cloud-ani 115s infinite;
+                animation-delay:10s;
+            }
+            .bottom-cloud3{
+                bottom: 138px;
+                transform: translate(-1318px);
+                animation:bottom-cloud-ani 115s infinite;
+                animation-delay:40s;
+            }
+            .bottom-cloud4{
+                bottom: -38px;
+                transform: translate(-1318px);
+                animation:bottom-cloud-ani 115s infinite;
+                animation-delay:30s;
+            }
+            .bottom-cloud-wrap{
+                bottom: 38px;
+                height: 250px;
+            }
+            .burner{
+                position: absolute;
+                top:475px;
+                left: 0px;
+                right: 0px;
+                margin: auto;
+                width: 418px;
+                height: 85px;
+                background-size: 100% 100%;
+
+                background-image: url('../images/home/burner.png');
+            }
+        }
+        .flower-icon{
+            display: inline-block;
+            background: url("../images/home/flower-icon.png");
+            width: 34px;
+            height: 66px;
+            background-size: 100% 100%;
+        }
+        .incense-icon{
+            display: inline-block;
+            background: url("../images/home/incense-icon.png");
+            width: 46px;
+            height: 179px;
+            background-size: 100% 100%;
+        }
+        .candlestick-item{
+            display: inline-block;
+            width: 23px;
+            position: absolute;
+            /* transform:translate(0px, 375px);*/
+            .wrapper{
+                position: relative;
+                text-align: center;
+            }
+            .fire-icon{
+                position: relative;
+                top:4px;
+                left: 6px;
+                display: block;
+                background: url("../images/home/fire-icon.gif") no-repeat;
+                width: 10px;
+                height: 20px;
+                background-size: 100% 100%;
+            }
+            .candlestick-icon{
+                display: inline-block;
+                background: url("../images/home/candlestick-icon.png");
+                width: 23px;
+                height: 35px;
+                background-size: 100% 100%;
+            }
+        }
+
+        .flower-gift-item{
+            transform:translate(277px, 584px);
+            &.active{
+                opacity: 1;
+                transition: transform 2s ease;
+            }
+        }
+        .incense-gift-item{
+            transform:translate(357px, 488px);
+            &.active{
+                opacity: 1;
+                transition: transform 1.4s ease;
+            }
+        }
+        .gcandlestick-gift-item{
+            transform:translate(430px, 600px);
+            .candlestick-item{
+                position: static;
+            }
+            &.active{
+                opacity: 1;
+                transition: transform 1.8s ease;
+            }
+        }
+
+        .btn-block{
+            bottom: 40px;
+            margin: auto;
+            width: 292px;
+            height: 140px;
+            .block-content{
+                position: relative;
+                text-align: center;
+                width: 100%;
+                height: 100%;
+                background: url("../images/home/counter.png") no-repeat center 88%;
+                background-size: 100% auto;
+            }
+            .btn-list{
+                position: absolute;
+                display: inline-block;
+                width: 100%;
+                left: 0px;
+                bottom: 0px;
+                >li{
+                    display: inline-block;
+                    width: 60px;
+                }
+            }
+            .worship-icon{
+                display: inline-block;
+                background: url("../images/home/worship-icon.png") no-repeat;
+                width: 103px;
+                height: 37px;
+                background-size: 100% 100%;
+            }
+            .flower-btn{
+                background: url("../images/home/flower-btn.png") no-repeat;
+                width: 45px;
+                height: 105px;
+                background-size: 100% 100%;
+                &:hover,&:active{
+                    background: url("../images/home/flower-btn-active.png") no-repeat;
+                    width: 56px;
+                    height: 116px;
+                    background-size: 100% 100%;
+                }
+                &:active{
+                    transform: scale(0.95);
+                }
+            }
+            .incense-btn{
+                background: url("../images/home/incense-btn.png") no-repeat;
+                width: 51px;
+                height: 86px;
+                background-size: 100% 100%;
+                &:hover,&:active{
+                    background: url("../images/home/incense-btn-active.png") no-repeat;
+                    width: 63px;
+                    height: 97px;
+                    background-size: 100% 100%;
+                }
+                &:active{
+                    transform: scale(0.95);
+                }
+            }
+            .candlestick-btn{
+                background: url("../images/home/candlestick-btn.png") no-repeat;
+                width: 29px;
+                height: 98px;
+                background-size: 100% 100%;
+                &:hover,&:active{
+                    background: url("../images/home/candlestick-btn-active.png") no-repeat;
+                    width: 43px;
+                    height: 108px;
+                    background-size: 100% 100%;
+                }
+                &:active{
+                    transform: scale(0.95);
+                }
+            }
+        }
+        .barrage-block{
+            position: absolute;
+            background: url("../images/home/barrage-bg.png") no-repeat;
+            width: 189px;
+            height: 222px;
+            left: 0px;
+            bottom: 40px;
+            padding: 10px 10px;
+            .block-content{
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 }
