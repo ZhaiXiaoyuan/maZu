@@ -41,8 +41,8 @@ export default {
 
     /**/
     //临时测试
-    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/yecai':'http://www.globalmazu.org:8801';
-/*      let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.yeahcai.com/yecai':'https://api.linqi.tech:34631';*/
+    /*let basicUrl=process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:12412':'http://www.globalmazu.org:8801';*/
+      let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.yeahcai.com/yecai':'http://zyu-server.wicp.net:12412';
 
     Vue.api={
         //获取统计数据

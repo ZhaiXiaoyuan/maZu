@@ -220,7 +220,7 @@
         height: 222px;
         left: 10px;
         bottom: 55px;
-        padding: 10px 10px;
+        padding: 10px 0px;
         .block-content{
             position: relative;
             overflow: hidden;
@@ -231,10 +231,13 @@
             position: absolute;
             left: 0px;
             bottom: 0px;
+            width: 100%;
+            padding: 0px 8px;
             li{
                 margin: 2px 0px;
                 display: flex;
                 align-items: center;
+                border-radius: 15px;
                 img{
                     width: 30px;
                     height: 30px;
@@ -247,6 +250,22 @@
                     span{
                         color: #ddbf6e;
                     }
+                }
+                @keyframes barrage-ani{
+                    0%{
+                        box-shadow: 0px 0px 10px #ffe400;
+                    }
+                    50%{
+                        box-shadow: 1px 1px 4px #ffe400;
+                    }
+                    100%{
+                        box-shadow: 0px 0px 10px #ffe400;
+                    }
+                }
+                &.active{
+                    animation:barrage-ani 1.2s infinite;
+                    animation-iteration-count:3;
+                    animation-fill-mode:none;
                 }
             }
         }
@@ -406,6 +425,9 @@
     }
     .incense-gift-item{
         transform:translate(464px, 635px);
+        .incense-item{
+            position: static;
+        }
         &.active{
             opacity: 1;
             transition: transform 1.4s ease;
@@ -461,8 +483,13 @@
     }
 
     .tem-item{
-        float: left;
-        margin: 100px;
+        position: absolute;
+        z-index: 100;
+        top:400px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        width: 100px;
         border: 1px solid blue;
         display: inline-block;
         .wrapper{
@@ -470,23 +497,31 @@
         }
     }
     .smoke-icon{
-        width: 50px;
+        width: 24px;
         height: 120px;
-        background-size: 100% 100%;
         background: url("../images/home/smoke-icon.gif");
         background-size: 100% 100%;
+        opacity: 0.28;
+        transform:rotateY(35deg);
     }
-    .stick-icon{
-        position: absolute;
-        display: inline-block;
-        background: url("../images/home/incense-long-icon.png");
-        width: 19px;
-        height: 75px;
+    @keyframes smoke-png-icon-ani{
+        0%{
+         transform: skew(10deg,10deg);
+        }
+        50%{
+            transform: skew(10deg,10deg);
+        }
+        100%{
+            transform: skew(10deg,10deg);
+        }
+    }
+    .smoke-png-icon{
+        background: url("../images/home/smoke-icon.png");
+        width: 56px;
+        height: 150px;
         background-size: 100% 100%;
-        bottom: -100%;
-        left: 0px;
-        right: 0px;
-        margin: auto;
+        background-color: #000;
+        animation:smoke-png-icon-ani 0.8s infinite;
     }
 
     .incense-item{
@@ -499,11 +534,18 @@
             text-align: center;
         }
         .smoke-icon{
-            width: 110px;
-            height: 240px;
+
+        }
+        .stick-icon{
+            position: absolute;
+            display: inline-block;
+            background: url("../images/home/incense-long-icon.png");
+            width: 19px;
+            height: 75px;
             background-size: 100% 100%;
-            background-image: url("../images/home/smoke-icon.gif");
-            mix-blend-mode: screen;
+            left: 0px;
+            right: 0px;
+            margin: auto;
         }
     }
     @media screen and(max-width: 1600px){
@@ -664,7 +706,7 @@
             }
         }
         .incense-gift-item{
-            transform:translate(357px, 488px);
+            transform:translate(357px, 450px);
             &.active{
                 opacity: 1;
                 transition: transform 1.4s ease;
@@ -765,7 +807,6 @@
             height: 222px;
             left: 0px;
             bottom: 40px;
-            padding: 10px 10px;
             .block-content{
                 position: relative;
                 overflow: hidden;

@@ -37,7 +37,7 @@
     min-width: 200px;
     max-width: 300px;
     text-align: center;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.6);
     border-radius: 5px;
 
     left: 50%;

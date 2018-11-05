@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        <p>Copyright  2018</p>
+        <p> Copyright &copy; 世界妈祖交流协会2018. All rights reserved.</p>
     </div>
 </template>
 <script>
