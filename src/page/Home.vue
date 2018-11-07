@@ -3,9 +3,11 @@
         <div class="page-content">
             <div id="map-container" style="width: 50px;height: 50px;position: absolute;z-index: -1000;opacity: 0;"></div>
             <div class="banner-panel">
-                <el-carousel height="100%">
-                    <el-carousel-item v-for="item in 4" :key="item">
-
+                <el-carousel height="100%" :interval="10000">
+                    <el-carousel-item @click="toDetail(item)" v-for="(item,index) in bannerList" :key="index" :style="{background: 'url('+basicConfig.coverBasicUrl+item.cover+') no-repeat center',backgroundSize: 'cover'}">
+                        <div class="banner-item-content" @click="toDetail(item)">
+                            <span class="link-tips">点击查看详情</span>
+                        </div>
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -187,6 +189,8 @@
                 winWidth:document.documentElement.scrollWidth,
 
                 handling:false,
+
+                bannerList:[],
             }
         },
         methods: {
@@ -194,14 +198,15 @@
                 Vue.api.getWorshipInfo({token:this.token}).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
+                        console.log('data:',data);
                         //
 
                         let list=data.msgList.reverse();
 
                         this.token=data.token;
-                        this.onlineCountGap=data.currentOnlineCount-data.LastMinOnlineCount;
+                        this.onlineCountGap=data.currentOnlineCount-data.lastMinOnlineCount;
                         if(this.onlineCountGap>0){
-                            this.onlineCount=data.LastMinOnlineCount;
+                            this.onlineCount=data.lastMinOnlineCount;
                         }else{
                             this.onlineCount=data.currentOnlineCount;
                         }
@@ -212,6 +217,7 @@
                         let newOilcCount=0;
                         let temList=[];
                         list.forEach((item,i)=>{
+                            item=JSON.parse(item);
                             item.id=item.token+item.timestamp;
                            /* let msgStrArr=item.msg.split('献上了');
                             item.name=msgStrArr[0];
@@ -267,7 +273,7 @@
                 }else{
                     this.handling=true;
                 }
-                let name=this.userPosition?this.userPosition.city+'信众':'信众';
+                let name=this.userPosition&&this.userPosition.city?this.userPosition.city+'信众':'世界各地信众';
                 let typeText='';
                 switch (type){
                     case 'worshipAction':
@@ -293,7 +299,6 @@
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete',text:'',delayForDelete:0});
                         let data=JSON.parse(resp.respMsg);
-                        console.log('data:',data);
                         let newMsg={
                             new:true,
                             type:type,
@@ -422,6 +427,21 @@
                     sTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
                 }
                 return sTop;
+            },
+            getBannerList() {
+                Vue.api.getBannerList({pageIndex:1,pageSize:10}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.bannerList=data.bannerList;
+                        console.log('data233:',data);
+                        //
+                    }else{
+
+                    }
+                });
+            },
+            toDetail:function (item) {
+                window.location.href=item.url;
             }
         },
         mounted () {
@@ -430,6 +450,8 @@
             //
             this.token=this.$cookie.get('token');
             this.token=this.token?this.token:null;
+            //
+            this.getBannerList();
             //
           /*  let worshipLimit=this.$cookie.get('worshipLimit');
             if(worshipLimit){
@@ -566,7 +588,7 @@
                     citySearch.getLocalCity();
                     AMap.event.addListener(citySearch, 'complete', (data)=>{
                         that.userPosition=data;
-                        /*console.log('position:',data);*/
+                        console.log('position:',data);
                     });//返回定位信息
                     AMap.event.addListener(citySearch, 'error', (error)=>{
                         /*console.log('error:',error);*/

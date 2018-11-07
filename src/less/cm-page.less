@@ -111,21 +111,27 @@
                 >li{
                     display: inline-block;
                     font-size: 18px;
-                    color: #fffef4;
                     padding: 3px 12px;
+                    color: #333;
                     font-family: '隶书';
+                    min-width: 100px;
+                    text-align: center;
+                    cursor: pointer;
                     &.active{
                         background: url("../images/common/btn-bg.png") no-repeat;
                         background-size: 100% 100%;
+                        color: #fffef4;
                     }
                 }
             }
         }
         .panel-bd{
             padding-top: 20px;
+          /*  min-height: 600px;*/
             .entry-list{
                 .entry{
                     overflow: hidden;
+                    cursor: pointer;
                     .cover{
                         float: left;
                         width: 180px;
@@ -162,6 +168,80 @@
                         margin-top: 20px;
                     }
                 }
+            }
+        }
+        .member-content{
+            padding: 20px;
+            .block{
+                .block-hd{
+                    font-size: 24px;
+                    color: #333;
+                    padding: 10px 0px;
+                }
+                .block-bd{
+                    padding: 0px 20px;
+                }
+                &+.block{
+                    margin-top: 20px;
+                }
+            }
+            .apply{
+                text-align: center;
+                .handle-btn{
+                    display: inline-block;
+                    background: url("../images/common/handle-btn-bg.png") no-repeat;
+                    width: 135px;
+                    height: 49px;
+                    background-size: cover;
+                    font-size: 24px;
+                    color: #ffd800;
+                    font-family: '宋体';
+                    line-height: 49px;
+                    text-align: center;
+                    &:active{
+                        transform: scale(0.98);
+                    }
+                }
+            }
+            .member-list{
+                .list-hd{
+                    padding: 10px 0px;
+                    font-size: 20px;
+                    color: #333;
+                }
+                .list-bd{
+                    ul{
+                        li{
+                            display: inline-block;
+                            font-size: 16px;
+                            color: #666;
+                            padding: 5px 12px;
+                            .index{
+                                margin-right: 4px;
+                                display: inline-block;
+                                width: 18px;
+                                height: 18px;
+                                border: 1px solid #666;
+                                border-radius: 50%;
+                                text-align: center;
+                                line-height: 18px;
+                                font-size: 12px;
+                            }
+                            &.active{
+                                cursor: pointer;
+                                color: #6e0d00;
+                            }
+                        }
+                    }
+                }
+                &+.member-list{
+                    margin-top: 20px;
+                }
+            }
+            .link-btn{
+                font-size: 16px;
+                color: #6e0d00;
+                text-decoration: underline;
             }
         }
     }

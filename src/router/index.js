@@ -25,5 +25,10 @@ export default new Router({
             name:'encyclopedia',
             component: resolve => require(['../page/Encyclopedia.vue'], resolve),
         },
+        {
+            path: '/article',
+            name:'article',
+            component: resolve => require(['../page/Article.vue'], resolve),
+        },
     ]
 })

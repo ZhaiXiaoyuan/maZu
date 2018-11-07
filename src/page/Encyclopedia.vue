@@ -10,14 +10,15 @@
                     <div class="text-info">
                         <p class="title">妈祖文化</p>
                         <div class="desc">
-                            妈祖，以中国东南沿海为中心的海神信仰，又称天上圣母、天等信佑妈祖，以中国东南沿海为中心的海神信仰，又称天上圣母、以中国为中心的海神天等信佑 妈祖，以中国东南沿海为中心的海神信仰，又称天上圣母、天等信佑妈祖，以中国东南沿海为中心的海神信仰...
-                            <span class="cm-btn link-btn">查看全文>></span>
+                            <p>妈祖是中国南方以及东南亚一带信众所敬仰的海神，又称为天上圣母、天后、天后娘娘、天妃、天妃娘娘、湄洲娘妈等。她也是新加坡琼州天后宫内所敬拜的主神。</p>
+                            <p>”有海水的地方就有华人，有华人的地方就有妈祖“，这句话丝毫不夸张，今天全世界有一亿多妈祖信徒。在新加坡、马来西亚、泰国.. <router-link :to="{ name: 'article',query:{type:'encyclopedia',contentType:'introduce'}}" class="cm-btn link-btn">查看全文>></router-link>.</p>
+
                         </div>
-                        <span class="cm-btn handle-btn">联系我们</span>
+                      <!--  <span class="cm-btn handle-btn">联系我们</span>-->
                     </div>
                     <div class="gallery">
                         <el-carousel :interval="4000" type="card" height="120" indicator-position="none">
-                            <el-carousel-item v-for="item in 6" :key="item">
+                            <el-carousel-item v-for="(item,index) in gallery" :key="index" :style="{background: 'url('+item.imgUrl+') no-repeat center',backgroundSize: 'cover'}">
 
                             </el-carousel-item>
                         </el-carousel>
@@ -31,26 +32,16 @@
                 </div>
                 <div class="panel-bd">
                     <ul class="entry-list">
-                       <li class="entry">
-                           <div class="cover">
-                               <img alt="">
-                           </div>
-                           <div class="text-info">
-                               <p class="title">妈祖协会举办大型妈祖</p>
-                               <p class="desc">大家都知道泉州有十八景，这十八景都是经过泉州人民推选出来的，都有着古老的文化历史，特别具有泉州的特色。泉州是一座历史文化古城，里面的历史文化建筑保存的非常的多。而这十八景就是泉州有名的历史人文景点和自然景点更泉州是一座历史.泉州是一座历史泉州是一座历史，文景点和自然景点更泉州是一座历史.泉州是一座历史泉州是一座历史是一座历史.泉州是一座历史泉州是一座历...</p>
-                               <p class="time">2018-10-01</p>
-                           </div>
-                       </li>
-                        <li class="entry">
+                        <router-link tag="li" :to="{ name: 'article',query:{id:entry.id,type:'encyclopedia',contentType:'dynamic'}}" v-for="(entry,index) in entryList" :key="index" class="entry">
                             <div class="cover">
-                                <img alt="">
+                                <img :src="basicConfig.coverBasicUrl+entry.cover">
                             </div>
                             <div class="text-info">
-                                <p class="title">妈祖协会举办大型妈祖</p>
-                                <p class="desc">大家都知道泉州有十八景，这十八景都是经过泉州人民推选出来的，都有着古老的文化历史，特别具有泉州的特色。泉州是一座历史文化古城，里面的历史文化建筑保存的非常的多。而这十八景就是泉州有名的历史人文景点和自然景点更泉州是一座历史.泉州是一座历史泉州是一座历史，文景点和自然景点更泉州是一座历史.泉州是一座历史泉州是一座历史是一座历史.泉州是一座历史泉州是一座历...</p>
-                                <p class="time">2018-10-01</p>
+                                <p class="title">{{entry.headline}}</p>
+                                <p class="desc">{{entry.summary}}</p>
+                                <p class="time" style="margin-top: 20px;">{{entry.submitTime|formatDate('yyyy-MM-dd hh:mm')}}</p>
                             </div>
-                        </li>
+                        </router-link>
                     </ul>
                 </div>
             </div>
@@ -71,13 +62,53 @@
         data: function(){
             return {
                 avatar:require('../images/encyclopedia/avatar.jpg'),
+
+                gallery:[
+                    {
+                        imgUrl:require('../images/encyclopedia/g1.jpg'),
+                    },
+                    {
+                        imgUrl:require('../images/encyclopedia/g2.jpg'),
+                    },
+                    {
+                        imgUrl:require('../images/encyclopedia/g3.jpg'),
+                    },
+                ],
+
+                pager:{
+                    pageIndex:1,
+                    pageSize:20,
+                    total:0,
+                    loading:false
+                },
+                keyword:null,
+                entryList:[],
             }
         },
         methods: {
-
+            getList:function (pageIndex) {
+                this.pager.pageIndex=pageIndex?pageIndex:1;
+                let params={
+                    searchContent:'',
+                    pageIndex:this.pager.pageIndex,
+                    pageSize:this.pager.pageSize,
+                    newsType:'mazuWorld',//associationNews、goddessPalace、mazuWorld
+                    state:'published',//removed、published
+                }
+                Vue.api.getNewsList(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=data.associationNewsList;
+                        list.reverse();
+                        this.entryList=list;
+                        this.pager.total=data.count;
+                        console.log('this.entryList:',this.entryList);
+                    }
+                });
+            },
         },
         mounted () {
-
+            this.getList();
         },
     }
 </script>

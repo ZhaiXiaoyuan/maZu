@@ -187,6 +187,22 @@ body {
 .cm-history-block > li.active:after {
   display: none;
 }
+.el-dialog__title {
+  color: #6e0d00 !important;
+}
+.el-button--primary {
+  background: #6e0d00 !important;
+  border: 1px solid #6e0d00 !important;
+}
+.el-button--primary:hover {
+  background: rgba(110, 13, 0, 0.8) !important;
+  border: 1px solid rgba(110, 13, 0, 0.8) !important;
+}
+.cm-no-content {
+  font-size: 20px;
+  padding: 20px 20px;
+  text-align: center;
+}
 .home .worship-title-icon {
   display: inline-block;
   background: url("../images/home/mazu-worship-title.png") no-repeat;
@@ -197,11 +213,74 @@ body {
 .home .banner-panel {
   width: 100%;
   height: 320px;
-  background: url("../images/home/banner-bg.jpg") no-repeat center;
-  background-size: cover;
+  /*    background: url("../images/home/banner-bg.jpg") no-repeat center;
+        background-size: cover;*/
 }
 .home .banner-panel .el-carousel {
   height: 100%;
+}
+.home .banner-panel .banner-item-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+}
+@-webkit-keyframes link-tips-ani {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+    opacity: 0.95;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes link-tips-ani {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+    opacity: 0.95;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+.home .banner-panel .banner-item-content .link-tips {
+  position: relative;
+  top: 75%;
+  display: inline-block;
+  /*position: absolute;*/
+  /*display: flex;
+                align-items: center;*/
+  font-size: 14px;
+  color: #fff;
+  /*  font-family: 'LiSu';*/
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  padding: 0px 20px;
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  -webkit-animation: link-tips-ani 2s infinite;
+          animation: link-tips-ani 2s infinite;
+}
+.home .banner-panel .banner-item-content .link-tips .icon {
+  font-size: 18px;
 }
 .home .worship-panel {
   margin-top: 20px;
@@ -484,7 +563,7 @@ body {
   height: 222px;
   left: 10px;
   bottom: 55px;
-  padding: 10px 10px;
+  padding: 10px 0px;
 }
 .home .barrage-block .block-content {
   position: relative;
@@ -496,6 +575,8 @@ body {
   position: absolute;
   left: 0px;
   bottom: 0px;
+  width: 100%;
+  padding: 0px 8px;
 }
 .home .barrage-block ul li {
   margin: 2px 0px;
@@ -507,6 +588,7 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 15px;
 }
 .home .barrage-block ul li img {
   width: 30px;
@@ -520,6 +602,36 @@ body {
 }
 .home .barrage-block ul li .text span {
   color: #ddbf6e;
+}
+@-webkit-keyframes barrage-ani {
+  0% {
+    box-shadow: 0px 0px 10px #ffe400;
+  }
+  50% {
+    box-shadow: 1px 1px 4px #ffe400;
+  }
+  100% {
+    box-shadow: 0px 0px 10px #ffe400;
+  }
+}
+@keyframes barrage-ani {
+  0% {
+    box-shadow: 0px 0px 10px #ffe400;
+  }
+  50% {
+    box-shadow: 1px 1px 4px #ffe400;
+  }
+  100% {
+    box-shadow: 0px 0px 10px #ffe400;
+  }
+}
+.home .barrage-block ul li.active {
+  -webkit-animation: barrage-ani 1.2s infinite;
+          animation: barrage-ani 1.2s infinite;
+  -webkit-animation-iteration-count: 3;
+          animation-iteration-count: 3;
+  -webkit-animation-fill-mode: none;
+          animation-fill-mode: none;
 }
 .home .btn-block {
   position: absolute;
@@ -724,6 +836,9 @@ body {
       -ms-transform: translate(464px, 635px);
           transform: translate(464px, 635px);
 }
+.home .incense-gift-item .incense-item {
+  position: static;
+}
 .home .incense-gift-item.active {
   opacity: 1;
   -webkit-transition: -webkit-transform 1.4s ease;
@@ -787,8 +902,13 @@ body {
   background-size: 100% 100%;
 }
 .home .tem-item {
-  float: left;
-  margin: 100px;
+  position: absolute;
+  z-index: 100;
+  top: 400px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  width: 100px;
   border: 1px solid blue;
   display: inline-block;
 }
@@ -796,22 +916,50 @@ body {
   position: relative;
 }
 .home .smoke-icon {
-  width: 50px;
+  width: 24px;
   height: 120px;
   background: url("../images/home/smoke-icon.gif");
   background-size: 100% 100%;
+  opacity: 0.28;
+  -webkit-transform: rotateY(35deg);
+          transform: rotateY(35deg);
 }
-.home .stick-icon {
-  position: absolute;
-  display: inline-block;
-  background: url("../images/home/incense-long-icon.png");
-  width: 19px;
-  height: 75px;
+@-webkit-keyframes smoke-png-icon-ani {
+  0% {
+    -webkit-transform: skew(10deg, 10deg);
+            transform: skew(10deg, 10deg);
+  }
+  50% {
+    -webkit-transform: skew(10deg, 10deg);
+            transform: skew(10deg, 10deg);
+  }
+  100% {
+    -webkit-transform: skew(10deg, 10deg);
+            transform: skew(10deg, 10deg);
+  }
+}
+@keyframes smoke-png-icon-ani {
+  0% {
+    -webkit-transform: skew(10deg, 10deg);
+            transform: skew(10deg, 10deg);
+  }
+  50% {
+    -webkit-transform: skew(10deg, 10deg);
+            transform: skew(10deg, 10deg);
+  }
+  100% {
+    -webkit-transform: skew(10deg, 10deg);
+            transform: skew(10deg, 10deg);
+  }
+}
+.home .smoke-png-icon {
+  background: url("../images/home/smoke-icon.png");
+  width: 56px;
+  height: 150px;
   background-size: 100% 100%;
-  bottom: -100%;
-  left: 0px;
-  right: 0px;
-  margin: auto;
+  background-color: #000;
+  -webkit-animation: smoke-png-icon-ani 0.8s infinite;
+          animation: smoke-png-icon-ani 0.8s infinite;
 }
 .home .incense-item {
   position: absolute;
@@ -823,12 +971,16 @@ body {
 .home .incense-item .wrapper {
   text-align: center;
 }
-.home .incense-item .smoke-icon {
-  width: 110px;
-  height: 240px;
+.home .incense-item .stick-icon {
+  position: absolute;
+  display: inline-block;
+  background: url("../images/home/incense-long-icon.png");
+  width: 19px;
+  height: 75px;
   background-size: 100% 100%;
-  background-image: url("../images/home/smoke-icon.gif");
-  mix-blend-mode: screen;
+  left: 0px;
+  right: 0px;
+  margin: auto;
 }
 @media screen and (max-width: 1600px) {
   .home {
@@ -1006,9 +1158,9 @@ body {
     transition: transform 2s ease, -webkit-transform 2s ease;
   }
   .home .incense-gift-item {
-    -webkit-transform: translate(357px, 488px);
-        -ms-transform: translate(357px, 488px);
-            transform: translate(357px, 488px);
+    -webkit-transform: translate(357px, 450px);
+        -ms-transform: translate(357px, 450px);
+            transform: translate(357px, 450px);
   }
   .home .incense-gift-item.active {
     opacity: 1;
@@ -1125,7 +1277,6 @@ body {
     height: 222px;
     left: 0px;
     bottom: 40px;
-    padding: 10px 10px;
   }
   .home .barrage-block .block-content {
     position: relative;
@@ -1239,19 +1390,25 @@ body {
 .cm-page .detail-panel .panel-hd .tab-list > li {
   display: inline-block;
   font-size: 18px;
-  color: #fffef4;
   padding: 3px 12px;
+  color: #333;
   font-family: '隶书';
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
 }
 .cm-page .detail-panel .panel-hd .tab-list > li.active {
   background: url("../images/common/btn-bg.png") no-repeat;
   background-size: 100% 100%;
+  color: #fffef4;
 }
 .cm-page .detail-panel .panel-bd {
   padding-top: 20px;
+  /*  min-height: 600px;*/
 }
 .cm-page .detail-panel .panel-bd .entry-list .entry {
   overflow: hidden;
+  cursor: pointer;
 }
 .cm-page .detail-panel .panel-bd .entry-list .entry .cover {
   float: left;
@@ -1287,4 +1444,72 @@ body {
 }
 .cm-page .detail-panel .panel-bd .entry-list .entry + .entry {
   margin-top: 20px;
+}
+.cm-page .detail-panel .member-content {
+  padding: 20px;
+}
+.cm-page .detail-panel .member-content .block .block-hd {
+  font-size: 24px;
+  color: #333;
+  padding: 10px 0px;
+}
+.cm-page .detail-panel .member-content .block .block-bd {
+  padding: 0px 20px;
+}
+.cm-page .detail-panel .member-content .block + .block {
+  margin-top: 20px;
+}
+.cm-page .detail-panel .member-content .apply {
+  text-align: center;
+}
+.cm-page .detail-panel .member-content .apply .handle-btn {
+  display: inline-block;
+  background: url("../images/common/handle-btn-bg.png") no-repeat;
+  width: 135px;
+  height: 49px;
+  background-size: cover;
+  font-size: 24px;
+  color: #ffd800;
+  font-family: '宋体';
+  line-height: 49px;
+  text-align: center;
+}
+.cm-page .detail-panel .member-content .apply .handle-btn:active {
+  -webkit-transform: scale(0.98);
+      -ms-transform: scale(0.98);
+          transform: scale(0.98);
+}
+.cm-page .detail-panel .member-content .member-list .list-hd {
+  padding: 10px 0px;
+  font-size: 20px;
+  color: #333;
+}
+.cm-page .detail-panel .member-content .member-list .list-bd ul li {
+  display: inline-block;
+  font-size: 16px;
+  color: #666;
+  padding: 5px 12px;
+}
+.cm-page .detail-panel .member-content .member-list .list-bd ul li .index {
+  margin-right: 4px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #666;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+}
+.cm-page .detail-panel .member-content .member-list .list-bd ul li.active {
+  cursor: pointer;
+  color: #6e0d00;
+}
+.cm-page .detail-panel .member-content .member-list + .member-list {
+  margin-top: 20px;
+}
+.cm-page .detail-panel .member-content .link-btn {
+  font-size: 16px;
+  color: #6e0d00;
+  text-decoration: underline;
 }

@@ -41,8 +41,8 @@ export default {
 
     /**/
     //临时测试
-    /*let basicUrl=process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:12412':'http://www.globalmazu.org:8801';*/
-      let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.yeahcai.com/yecai':'http://zyu-server.wicp.net:12412';
+    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:12412':'http://api.globalmazu.org:8801';
+     // let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.yeahcai.com/yecai':'http://zyu-server.wicp.net:12412';
 
     Vue.api={
         //获取统计数据
@@ -66,6 +66,38 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/mazu-webConsole/banner/getBannerList',
+                params: params
+            });
+        },
+        //获取成员单位的分页列表
+        getMemberList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mazu-webConsole/associationNews/getMemberOrganizationList',
+                params: params
+            });
+        },
+        //根据id获取成员单位详情
+        getMemberDetail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mazu-webConsole/associationNews/getMemberOrganizationInfo',
+                params: params
+            });
+        },
+        //获取动态的分页列表
+        getNewsList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mazu-webConsole/associationNews/getAssociationNewsList',
+                params: params
+            });
+        },
+        //根据id获取动态详情
+        getNewsDetail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mazu-webConsole/associationNews/getAssociationNewsInfo',
                 params: params
             });
         },
