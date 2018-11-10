@@ -103,3 +103,19 @@ Vue.filter('adviceStatus',function(str){
     }
     return result;
 });
+
+
+/*数值格式*/
+Vue.filter('numFormat',function(num){
+    let result='';
+    if(num>10000){
+        let unit='万';
+        let num1=Math.floor(num/10000);
+        let num1Arr=num1.toString().split('');
+        let num2=num%10000;
+        result=num1+unit+num2;
+    }else{
+        result=num;
+    }
+    return result;
+});

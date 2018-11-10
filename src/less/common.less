@@ -99,7 +99,8 @@ table {
 /*自定义样式*/
 body{
     background: url("../images/common/cm-bg.jpg");
-    overflow: auto;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .icon {
     display: inline-block;
@@ -169,4 +170,16 @@ body{
     font-size: 20px;
     padding: 20px 20px;
     text-align: center;
+}
+
+@media screen and(max-width: 1000px){
+    #app{
+        padding-top: 1rem;
+    }
+    .cm-container{
+        width: auto;
+    }
+    .el-dialog{
+        width: 80% !important;
+    }
 }

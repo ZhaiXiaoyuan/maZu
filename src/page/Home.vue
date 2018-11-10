@@ -16,23 +16,17 @@
                     <i class="icon title-icon worship-title-icon"></i>
                 </div>
                 <div class="panel-bd">
+                    <i class="icon left-desk"></i>
+                    <i class="icon right-desk"></i>
                     <i class="icon bottom-cloud bottom-cloud2"></i>
                     <i class="icon bottom-cloud bottom-cloud3"></i>
                     <i class="icon cirle-icon"></i>
                     <i class="icon light-icon"></i>
-                   <!-- <i class="icon left-right-cloud"></i>
-                    <i class="icon right-cloud"></i>-->
                     <i class="icon left-potted"></i>
                     <i class="icon right-potted"></i>
                     <i class="icon merit"></i>
                     <i class="icon mazu"></i>
 
-                   <!-- <div class="tem-item">
-                        <div class="wrapper">
-                            <i class="icon smoke-icon"></i>
-                            <i class="icon stick-icon"></i>
-                        </div>
-                    </div>-->
 
                     <i class="icon burner"></i>
                     <div class="bottom-cloud-wrap">
@@ -41,16 +35,16 @@
                     </div>
                     <div class="number-block">
                         <div class="row">
-                            <p>累计朝拜人次<span class="strong">{{infoData.totleWorshipCount}}</span></p>
+                            <p>累计朝拜人次<span class="strong">{{infoData.totleWorshipCount|numFormat}}</span></p>
                         </div>
                         <div class="row">
-                            <p>当前<span class="strong">{{onlineCount}}</span>人正在朝拜妈祖</p>
+                            <p>当前<span class="strong">{{onlineCount|numFormat}}</span>人正在朝拜妈祖</p>
                         </div>
                     </div>
                     <div class="data-block">
-                        <p>累计鲜花：<span class="strong">{{infoData.totleFlowerCount}}</span></p>
-                        <p>累计香火：<span class="strong">{{infoData.totleCandleCount}}</span></p>
-                        <p>累计香油：<span class="strong">{{infoData.totleOliCount}}</span></p>
+                        <p>累计鲜花：<span class="strong">{{infoData.totleFlowerCount|numFormat}}</span></p>
+                        <p>累计香火：<span class="strong">{{infoData.totleCandleCount|numFormat}}</span></p>
+                        <p>累计香油：<span class="strong">{{infoData.totleOliCount|numFormat}}</span></p>
                     </div>
                     <div class="barrage-block">
                        <div class="block-content">
@@ -191,6 +185,9 @@
                 handling:false,
 
                 bannerList:[],
+                requestInterval:null,
+                itemInterval:null,
+                onlineRandom:parseInt(Math.random()*(10-5+1)+5,10),
             }
         },
         methods: {
@@ -198,7 +195,7 @@
                 Vue.api.getWorshipInfo({token:this.token}).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        console.log('data:',data);
+                      /*  console.log('data:',data);*/
                         //
 
                         let list=data.msgList.reverse();
@@ -206,9 +203,9 @@
                         this.token=data.token;
                         this.onlineCountGap=data.currentOnlineCount-data.lastMinOnlineCount;
                         if(this.onlineCountGap>0){
-                            this.onlineCount=data.lastMinOnlineCount;
+                            this.onlineCount=this.onlineRandom+data.lastMinOnlineCount;
                         }else{
-                            this.onlineCount=data.currentOnlineCount;
+                            this.onlineCount=this.onlineRandom+data.currentOnlineCount;
                         }
                         //
                         this.msgList=[];
@@ -242,6 +239,7 @@
                         this.infoData.totleFlowerCount=data.totleFlowerCount-newFlowerCount;
                         this.infoData.totleCandleCount=data.totleCandleCount-newCandleCount;
                         this.infoData.totleOliCount=data.totleOliCount-newOilcCount;
+
                         //
                         if(this.barrageList.length==0){
                             console.log('toInit');
@@ -433,7 +431,6 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.bannerList=data.bannerList;
-                        console.log('data233:',data);
                         //
                     }else{
 
@@ -475,10 +472,16 @@
             let gcandlestickSizeNum2=373;
             let gcandlestickSizeNum3=40;
             let gcandlestickSizeNum4=42;
+            let gcandlestickSizeNum5=25;
+            let gcandlestickSizeNum6=5;
+            let gcandlestickSizeNum7=15;
+            let gcandlestickSizeNum8=4;
             let incenseSizeNum1=470;
             let incenseSizeNum2=218;
             let incenseSizeNum3=448;
-            if(this.winWidth<1600){
+            let incenseSizeNum4=1;
+            let unit='px';
+            if(this.winWidth>1000&&this.winWidth<1600){
                 flowerSizeNum1=45;
                 flowerSizeNum2=300;
                 flowerSizeNum3=230;
@@ -489,6 +492,24 @@
                 incenseSizeNum1=371;
                 incenseSizeNum2=167;
                 incenseSizeNum3=298;
+            }else if(this.winWidth<1000){
+                unit='rem';
+                flowerSizeNum1=0.45;
+                flowerSizeNum2=3;
+                flowerSizeNum3=3.26;
+                gcandlestickSizeNum1=3.26;
+                gcandlestickSizeNum2=3.82;
+                gcandlestickSizeNum3=0.34;
+                gcandlestickSizeNum4=0.34;
+                gcandlestickSizeNum5=0.2;
+                gcandlestickSizeNum6=0;
+                gcandlestickSizeNum7=0.1;
+                gcandlestickSizeNum8=0;
+
+                incenseSizeNum1=371;
+                incenseSizeNum2=176;
+                incenseSizeNum3=378;
+                incenseSizeNum4=100;
             }
             //
             for(let i=0;i<10;i++){
@@ -498,7 +519,7 @@
                 }else{
                     x=flowerSizeNum2+flowerSizeNum1*i;
                 }
-                this.flowerList.push({position:{transform:'translate('+x+'px, '+flowerSizeNum3+'px)'},msg:null});
+                this.flowerList.push({position:{transform:'translate('+x+unit+', '+flowerSizeNum3+unit+')'},msg:null});
             }
             //
             for(let i=0;i<3;i++){
@@ -508,18 +529,18 @@
                 switch (i){
                     case 0:
                         y=gcandlestickSizeNum2;
-                        xDeviator=25;
-                        xGapDeviator=xGapDeviator+5;
+                        xDeviator=gcandlestickSizeNum5;
+                        xGapDeviator=xGapDeviator+gcandlestickSizeNum6;
                         break;
                     case 1:
                         y=gcandlestickSizeNum2+gcandlestickSizeNum3;
-                        xDeviator=15;
-                        xGapDeviator=xGapDeviator+15;
+                        xDeviator=gcandlestickSizeNum7;
+                        xGapDeviator=xGapDeviator+gcandlestickSizeNum7;
                         break;
                     case 2:
-                        y=gcandlestickSizeNum2+gcandlestickSizeNum3*2+4;
-                        xDeviator=5;
-                        xGapDeviator=xGapDeviator+25;
+                        y=gcandlestickSizeNum2+gcandlestickSizeNum3*2+gcandlestickSizeNum8;
+                        xDeviator=gcandlestickSizeNum6;
+                        xGapDeviator=xGapDeviator+gcandlestickSizeNum5;
                         break;
                 }
                 for(let j=0;j<12;j++){
@@ -529,25 +550,25 @@
                     }else{
                         x=xGapDeviator+gcandlestickSizeNum4*j;
                     }
-                    this.gcandlestickList.push({position:{transform:'translate('+x+'px, '+y+'px)',msg:null}})
+                    this.gcandlestickList.push({position:{transform:'translate('+x+unit+', '+y+unit+')',msg:null}})
                 }
             }
             //
             for(let i=0;i<50;i++){
                 let x=parseInt(Math.random()*(incenseSizeNum1+1)+incenseSizeNum2,10);
                 let y=parseInt(Math.random()*(10+1)+incenseSizeNum3,10);
-                this.incenseList.push({position:{transform:'translate('+x+'px, '+y+'px)',msg:null}})
+                this.incenseList.push({position:{transform:'translate('+x/incenseSizeNum4+unit+', '+y/incenseSizeNum4+unit+')',msg:null}})
             }
             //
             this.getWorshipInfo();
-            setInterval(()=>{
+            this.requestInterval=setInterval(()=>{
                 this.getWorshipInfo();
                 if(this.barrageList.length>10){
                     this.barrageList.splice(10,this.barrageList.length-10);
                 }
             },60000);
             //
-            setInterval(()=>{
+            this.itemInterval=setInterval(()=>{
                 if(this.msgList.length>0){
                     let item=this.msgList.pop();
                     this.addGift(item);
@@ -588,7 +609,7 @@
                     citySearch.getLocalCity();
                     AMap.event.addListener(citySearch, 'complete', (data)=>{
                         that.userPosition=data;
-                        console.log('position:',data);
+
                     });//返回定位信息
                     AMap.event.addListener(citySearch, 'error', (error)=>{
                         /*console.log('error:',error);*/
@@ -611,6 +632,20 @@
                     headerTarget.style.top='0%';
                 }
             })
+           /* let temTypeList=['worshipAction','flower','candle','oil'];
+            let count=0;
+            let temInterval=setInterval(()=>{
+                this.doWorship(temTypeList[parseInt(Math.random()*(temTypeList.length),10)]);
+                count++;
+                if(count>3000){
+                    clearInterval(temInterval);
+                }
+            },3000);*/
+        },
+        beforeRouteLeave(to,from,next){
+            clearInterval(this.requestInterval);
+            clearInterval(this.itemInterval);
+            next();
         },
     }
 </script>

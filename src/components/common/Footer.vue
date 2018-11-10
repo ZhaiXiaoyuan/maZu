@@ -22,8 +22,7 @@
         }
     }
 </script>
-<style scoped>
-
+<style lang="less" rel="stylesheet/less" scoped>
     .footer{
         position: absolute;
         left: 0px;
@@ -35,5 +34,12 @@
         background: #fffef4;
         font-size: 14px;
         color: #000;
+    }
+    @media screen and(max-width: 1000px){
+        .footer{
+              height: 0.88rem;
+              line-height: 0.88rem;
+              font-size: 0.24rem;
+        }
     }
 </style>

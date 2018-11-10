@@ -63,6 +63,7 @@
     .worship-panel{
         margin-top: 20px;
         overflow: hidden;
+        user-select: none;
         .panel-hd{
             padding: 0px 40px;
             background: url("../images/common/panel-line.png") no-repeat bottom;
@@ -216,7 +217,7 @@
             left: 10px;
             .row{
                 background: url("../images/home/counter-bg.png") no-repeat;
-                width: 170px;
+                min-width: 170px;
                 height: 36px;
                 background-size: 100% 100%;
                 color: #59120b;
@@ -234,12 +235,16 @@
             top:10px;
             right: 10px;
             background: url("../images/home/data-bg.png") no-repeat;
-            width: 130px;
+            background-size: 100% 100%;
+            min-width: 130px;
             height: 79px;
             color: #59120b;
             font-size: 12px;
             line-height: 17px;
             padding: 13px 10px 10px 15px;
+            p{
+                white-space:nowrap;
+            }
             .strong{
                 font-size: 14px;
                 color: #e71719;
@@ -303,6 +308,28 @@
                 }
             }
         }
+    }
+    .left-desk{
+        position: absolute;
+        z-index: 0;
+        left: 0px;
+        top:373px;
+        display: inline-block;
+        background: url("../images/home/left-desk.png") no-repeat;
+        width: 281px;
+        height: 225px;
+        background-size: 100% 100%;
+    }
+    .right-desk{
+        position: absolute;
+        z-index: 0;
+        right: 0px;
+        top:373px;
+        display: inline-block;
+        background: url("../images/home/right-desk.png") no-repeat;
+        width: 280px;
+        height: 225px;
+        background-size: 100% 100%;
     }
     .btn-block{
         position: absolute;
@@ -407,6 +434,7 @@
     }
     .dialog-block{
         opacity: 0;
+        z-index: 200;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -597,6 +625,16 @@
                 width: 747px;
                 height: 700px;
             }
+            .left-desk{
+                top:292px;
+                width: 216px;
+                height: 173px;
+            }
+            .right-desk{
+                top:292px;
+                width: 216px;
+                height: 173px;
+            }
             .cirle-icon{
                 top: 27px;
                 width: 151px;
@@ -736,7 +774,7 @@
             transform:translate(277px, 584px);
             &.active{
                 opacity: 1;
-                transition: transform 2s ease;
+                transition: all 2s ease;
             }
         }
         .incense-gift-item{
@@ -847,6 +885,416 @@
                 width: 100%;
                 height: 100%;
             }
+        }
+    }
+    @media screen and(max-width: 1000px){
+        .banner-panel{
+            width: 100%;
+            height: 3.2rem;
+            /*    background: url("../images/home/banner-bg.jpg") no-repeat center;
+                background-size: cover;*/
+            .banner-item-content{
+                .link-tips{
+                    top:72%;
+                    font-size: 0.24rem;
+                    height: 0.5rem;
+                    line-height: 0.5rem;
+                    border-radius: 0.25rem;
+                    padding: 0rem 0.3rem;
+                }
+            }
+        }
+        .worship-panel{
+            margin-top: 0.1rem;
+            .panel-hd{
+                padding: 0px 0.2rem;
+                background: url("../images/common/panel-line.png") no-repeat bottom;
+                width: 100%;
+                background-size: 100% auto;
+                .worship-title-icon{
+                    width: 4.34rem;
+                    height: 0.76rem;
+                }
+            }
+            .panel-bd{
+                position: relative;
+                background: url("../images/home/mazu-bg.jpg") no-repeat;
+                margin: 0.2rem auto 0px auto;
+                width:100%;
+                height: 9.8rem;
+                overflow: hidden;
+                background-position: top center;
+                background-size: auto 94%;
+            }
+
+            @keyframes bottom-cloud-ani
+            {
+                0% {transform: translate(-24.65rem);opacity: 1}
+                30% {transform: translate(-10rem);opacity: 1}
+                100% {transform:translate(12rem);opacity: 1}
+            }
+            .bottom-cloud{
+                left: 0.1rem;
+                bottom: 0.4rem;
+                width: 24.65rem;
+                height: 2.59rem;
+                transform: translate(-24.65rem);
+                animation:bottom-cloud-ani 100s infinite;
+            }
+            .bottom-cloud2{
+                bottom: 2rem;
+                transform: translate(-24.65rem);
+                animation:bottom-cloud-ani 110s infinite;
+                animation-delay:10s;
+            }
+            .bottom-cloud3{
+                bottom: 1.8rem;
+                transform: translate(-1750px);
+                animation:bottom-cloud-ani 200s infinite;
+                animation-delay:50s;
+            }
+            .bottom-cloud4{
+                bottom: -1rem;
+                transform: translate(-24.65rem);
+                animation:bottom-cloud-ani 120s infinite;
+                animation-delay:20s;
+            }
+            .bottom-cloud-wrap{
+                left: 0rem;
+                bottom: 0.6rem;
+                height: 4rem;
+            }
+
+            .dialog-block{
+                opacity: 0;
+                top: 1.7rem;
+                left:3.8rem;
+                width: 3.5rem;
+                min-height: 1.2rem;
+           /*     max-height: 1.4rem;*/
+                overflow: hidden;
+                font-size: 0.24rem;
+                padding: 0.1rem 0.12rem 0.1rem 0.9rem;
+                line-height: 0.34rem;
+                transform: scale(0.78);
+                &.active{
+                    opacity: 1;
+                }
+            }
+            .number-block{
+                top:0rem;
+                left: 0.04rem;
+                .row{
+                    position: relative;
+                    z-index: 1;
+                    margin-top: -0.08rem;
+                    min-width:3.04rem;
+                    height: 0.64rem;
+                    font-size: 0.24rem;
+                    padding: 0.24rem 0.2rem 0rem 0.2rem;
+                    white-space:nowrap;
+                    .strong{
+                        font-size: 0.28rem;
+                    }
+                    &+.row{
+                        z-index: 0;
+                    }
+                }
+            }
+            .data-block{
+                top:0rem;
+                right: 0rem;
+                min-width: 2.34rem;
+                height: 1.42rem;
+                font-size: 0.24rem;
+                line-height: 0.32rem;
+                padding: 0.24rem 0.18rem 0rem 0.24rem;
+                .strong{
+                    font-size: 0.24rem;
+                    color: #e71719;
+                    font-weight: bold;
+                }
+            }
+            .left-desk{
+                left: 0rem;
+                top: 4rem;
+                width: 2.16rem;
+                height: 1.73rem;
+            }
+            .right-desk{
+                right: 0rem;
+                top: 4rem;
+                width: 2.16rem;
+                height: 1.73rem;
+            }
+            .cirle-icon{
+                top: 1.12rem;
+                width: 1.51rem;
+                height: 1.51rem;
+            }
+            .light-icon{
+                position: absolute;
+                top: 0.9rem;
+                width: 2.08rem;
+                height: 2.08rem;
+            }
+            .left-potted{
+                top: 4.8rem;
+                left: 1.68rem;
+                width: 0.8rem;
+                height: 1.18rem;
+            }
+            .right-potted{
+                top: 4.8rem;
+                right: 1.68rem;
+                width: 0.8rem;
+                height: 1.18rem;
+            }
+            .merit{
+                top:5.5rem;
+                bottom: auto;
+                right: 0.6rem;
+                width: 0.84rem;
+                height: 0.96rem;
+            }
+            .mazu{
+                top:1.68rem;
+                width: 3.33rem;
+                height: 4.33rem;
+            }
+
+            .burner{
+                top:5.8rem;
+                width: 4.18rem;
+                height: 0.85rem;
+            }
+
+            .flower-icon{
+                display: inline-block;
+                background: url("../images/home/flower-icon.png");
+                width: 0.40rem;
+                height: 0.79rem;
+                background-size: 100% 100%;
+            }
+            .candlestick-item{
+                display: inline-block;
+                width: 0.28rem;
+                position: absolute;
+                .wrapper{
+                    position: relative;
+                    text-align: center;
+                }
+                .fire-icon{
+                    top:0.06rem;
+                    left: 0.08rem;
+                    width: 0.12rem;
+                    height: 0.24rem;
+                }
+                .candlestick-icon{
+                    width: 0.28rem;
+                    height: 0.43rem;
+                }
+            }
+            .smoke-icon{
+                width: 0.24rem;
+                height: 1.36rem;
+                background: url("../images/home/smoke-icon.gif");
+                background-size: 100% 100%;
+                opacity: 0.28;
+                transform:rotateY(35deg);
+            }
+            .incense-item{
+                .stick-icon{
+                    width: 0.2rem;
+                    height: 0.82rem;
+                }
+            }
+
+            .barrage-block{
+                position: absolute;
+                z-index: 10;
+                background: url("../images/home/barrage-bg.png") no-repeat;
+                background-size: 100% 100%;
+                width: 2.6rem;
+                height: 3.6rem;
+                left: 0rem;
+                bottom: 0.8rem;
+                padding: 0.1rem 0rem;
+                .block-content{
+                    position: relative;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 100%;
+                }
+                ul{
+                    position: absolute;
+                    left: 0px;
+                    bottom: 0px;
+                    width: 100%;
+                    padding: 0px 0.04rem;
+                    li{
+                        margin: 0.04rem 0px;
+                        display: flex;
+                        align-items: center;
+                        border-radius: 0.3rem;
+                        transform: scale(0.9);
+                        img{
+                            width: 0.6rem;
+                            height: 0.6rem;
+                            border-radius: 50%;
+                        }
+                        .text{
+                            padding-left: 0.1rem;
+                            font-size: 0.24rem;
+                            color: #d4d4d4;
+                            span{
+                                color: #ddbf6e;
+                                &:first-child{
+                                    display: block;
+                                }
+                            }
+                        }
+                        @keyframes barrage-ani{
+                            0%{
+                                box-shadow: 0px 0px 10px #ffe400;
+                            }
+                            50%{
+                                box-shadow: 1px 1px 4px #ffe400;
+                            }
+                            100%{
+                                box-shadow: 0px 0px 10px #ffe400;
+                            }
+                        }
+                        &.active{
+                            animation:barrage-ani 1.2s infinite;
+                            animation-iteration-count:3;
+                            animation-fill-mode:none;
+                        }
+                    }
+                }
+            }
+            .btn-block{
+                z-index: 50;
+                bottom: 0rem;
+                margin: auto;
+                width: 4.8rem;
+                height: 2.8rem;
+                .block-content{
+                    position: relative;
+                    text-align: center;
+                    width: 100%;
+                    height: 100%;
+                    background: url("../images/home/counter.png") no-repeat center 88%;
+                    background-size: 100% auto;
+                }
+                .btn-list{
+                    position: absolute;
+                    display: inline-block;
+                    width: 100%;
+                    left: 0px;
+                    bottom: 0px;
+                    >li{
+                        display: inline-block;
+                        width: 1.08rem;
+                    }
+                }
+                .worship-icon{
+                    display: inline-block;
+                    background: url("../images/home/worship-icon.png") no-repeat;
+                    width: 2.05rem;
+                    height: 0.74rem;
+                    background-size: 100% 100%;
+                }
+                .flower-btn{
+                    background: url("../images/home/flower-btn.png") no-repeat;
+                    width: 0.81rem;
+                    height: 1.89rem;
+                    background-size: 100% 100%;
+                   &:active{
+                        background: url("../images/home/flower-btn-active.png") no-repeat;
+                        width: 1rem;
+                        height: 2.08rem;
+                        background-size: 100% 100%;
+                       transform: scale(0.95);
+                    }
+                }
+                .incense-btn{
+                    background: url("../images/home/incense-btn.png") no-repeat;
+                    width: 0.91rem;
+                    height: 1.53rem;
+                    background-size: 100% 100%;
+                  &:active{
+                        background: url("../images/home/incense-btn-active.png") no-repeat;
+                        width: 1.13rem;
+                        height: 1.74rem;
+                        background-size: 100% 100%;
+                      transform: scale(0.95);
+                    }
+                }
+                .candlestick-btn{
+                    background: url("../images/home/candlestick-btn.png") no-repeat;
+                    width: 0.52rem;
+                    height: 1.76rem;
+                    background-size: 100% 100%;
+                    &:active{
+                        background: url("../images/home/candlestick-btn-active.png") no-repeat;
+                        width: 0.77rem;
+                        height: 1.94rem;
+                        background-size: 100% 100%;
+                        transform: scale(0.95);
+                    }
+                }
+            }
+            .flower-gift-item{
+                transform:translate(2.2rem, 7.9rem);
+                width: 0.8rem;
+                height: 1.58rem;
+                &.active{
+                    width: 0.4rem;
+                    height: 0.79rem;
+                }
+            }
+            .incense-gift-item{
+                transform:translate(3.6rem, 6.8rem);
+            }
+            .gcandlestick-gift-item{
+                transform:translate(5.59rem, 7.8rem);
+                .candlestick-item{
+                    position: static;
+                    width: 0.56rem;
+                    transition: all 1.8s ease;
+                    .fire-icon{
+                        top: 0.12rem;
+                        left: 0.16rem;
+                        width: 0.24rem;
+                        height: 0.48rem;
+                        transition: all 1.8s ease;
+                    }
+                    .candlestick-icon{
+                        width: 0.56rem;
+                        height: 0.86rem;
+                        transition: all 1.8s ease;
+                    }
+                }
+                &.active{
+                    .candlestick-item{
+                        width: 0.28rem;
+                        .fire-icon{
+                            top: 0.06rem;
+                            left: 0.08rem;
+                            width: 0.12rem;
+                            height: 0.24rem;
+                        }
+                        .candlestick-icon{
+                            width: 0.28rem;
+                            height: 0.43rem;
+                        }
+                    }
+                    opacity: 1;
+                    transition: transform 1.8s ease;
+                }
+            }
+
         }
     }
 }

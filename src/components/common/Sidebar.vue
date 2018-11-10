@@ -209,8 +209,7 @@
             //
             this.accountInfo=this.getAccountInfo();
             this.accountAccess=null;
-            //临时测试
-            if(true||this.accountInfo.type=='superManager'){
+            if(this.accountInfo.type=='superManager'){
                 this.accountAccess=['01','02','03','04','05','06','07'];
                /* this.accountAccess='all';*/
             }else if(this.accountInfo.type=='marketManager'){

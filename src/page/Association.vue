@@ -3,6 +3,13 @@
         <div class="cm-container page-content">
             <div class="introduce-panel">
                 <div class="panel-content">
+                    <div class="gallery">
+                        <el-carousel :interval="4000" type="card" height="120" indicator-position="none">
+                            <el-carousel-item v-for="(item,index) in gallery" :key="index":style="{background: 'url('+item.imgUrl+') no-repeat center',backgroundSize: 'cover'}">
+
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
                     <div class="avatar">
                         <img :src="avatar" alt="">
                         <div class="avatar-mask"></div>
@@ -17,13 +24,6 @@
                         <!--    <span class="cm-btn link-btn">查看全文>></span>-->
                         </div>
                         <router-link :to="{ name: 'article',query:{type:'association',contentType:'contact'}}" class="cm-btn handle-btn">联系我们</router-link>
-                    </div>
-                    <div class="gallery">
-                        <el-carousel :interval="4000" type="card" height="120" indicator-position="none">
-                            <el-carousel-item v-for="(item,index) in gallery" :key="index":style="{background: 'url('+item.imgUrl+') no-repeat center',backgroundSize: 'cover'}">
-
-                            </el-carousel-item>
-                        </el-carousel>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                            <div class="text-info">
                                <p class="title">{{entry.headline}}</p>
                                <p class="desc">{{entry.summary}}</p>
-                               <p class="time" style="margin-top: 20px;">{{entry.submitTime|formatDate('yyyy-MM-dd hh:mm')}}</p>
+                               <p class="time">{{entry.submitTime|formatDate('yyyy-MM-dd hh:mm')}}</p>
                            </div>
                        </router-link>
                     </ul>
@@ -111,7 +111,7 @@
         data: function(){
             return {
                 avatar:require('../images/common/logo-icon.png'),
-                pageType:'member',//member,rule,dynamic,
+                pageType:'dynamic',//member,rule,dynamic,
                 memberList:[],
                 applyModalFlag:false,
 
@@ -178,7 +178,7 @@
                                 subList.push(item);
                             }
                         });
-                        console.log('this.memberList:',this.memberList);
+
                     }
                 });
             },
@@ -197,7 +197,6 @@
                         let list=data.associationNewsList;
                         this.entryList=list;
                         this.pager.total=data.count;
-                        console.log('this.entryList:',this.entryList);
                     }
                 });
             },

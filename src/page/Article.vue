@@ -118,6 +118,51 @@
         .article-content{
             padding: 40px 20px;
         }
+
+        @media screen and(max-width: 1000px){
+            .page-content{
+                padding-top: 0.2rem;
+                width: 100%;
+                margin: 0px auto;
+            }
+            .cm-history-block{
+                padding-left: 0.2rem;
+            }
+            .contact-card{
+                margin: 1.6rem auto 0rem auto;
+                background: url("../images/common/card-bg.png") no-repeat;
+                width: 7.37rem;
+                height: 4.03rem;
+                background-size: 100% 100%;
+                display: flex;
+                padding: 0.8rem 0.3rem 0.3rem 0.3rem;
+                .left-part{
+                    text-align: center;
+                    width: 45%;
+                    img{
+                        width: 1.6rem;
+                        height: 1.6rem;
+                    }
+                    .title{
+                        margin-top: 0.1rem;
+                        font-size: 0.32rem;
+                        color:#5c2507;
+                    }
+                }
+                .right-part{
+                    margin-left: 0.1rem;
+                    font-size: 0.28rem;
+                    color:#000;
+                    line-height: 0.5rem;
+                }
+            }
+            .article-content{
+                padding: 0.4rem 0.3rem;
+            }
+            iframe{
+                height: 4.6rem !important;
+            }
+        }
     }
 </style>
 <script>

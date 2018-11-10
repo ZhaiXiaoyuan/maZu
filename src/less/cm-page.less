@@ -245,4 +245,141 @@
             }
         }
     }
+    @media screen and(max-width: 1000px){
+       .introduce-panel{
+          padding-top: 0rem;
+           .avatar{
+               width: 2rem;
+               height: 2rem;
+               padding: 0.1rem;
+               margin-left: 0.2rem;
+               .avatar-mask{
+                   width: 2rem;
+                   height: 2rem;
+               }
+           }
+           .text-info{
+               margin-left: 0.2rem;
+               padding-right: 0.2rem;
+               width: 68%;
+               .title{
+                   font-size: 0.32rem;
+               }
+               .desc{
+                   margin-top: 0.1rem;
+                   font-size: 0.24rem;
+                   color: #333;
+                   line-height: 0.36rem;
+               }
+               .handle-btn{
+                   margin-top: 0.2rem;
+                   padding: 0.08rem 0.24rem;
+                   font-size: 0.28rem;
+               }
+               .link-btn{
+                   padding-left: 5px;
+                   color: #850303;
+               }
+           }
+           .gallery{
+               margin-bottom: 0.3rem;
+               width: 100%;
+               height: 3rem;
+           }
+       }
+        .detail-panel{
+            margin-top: 0.4rem;
+            padding: 0rem 0.2rem;
+            .panel-bd{
+                padding-top: 0.3rem;
+                .entry-list{
+                    .entry{
+                        padding: 0.2rem 0rem;
+                        .cover{
+                            float: left;
+                            width: 2.16rem;
+                          /*  height: 1.48rem;*/
+                            height: 1.6rem;
+                            background: #eaeaea;
+                        }
+                        .text-info{
+                            padding-left: 2.3rem;
+                            padding-right: 0rem;
+                            font-size: 0.24rem;
+                            .title{
+                                margin-top: 0rem;
+                                font-size: 0.28rem;
+                                color: #891619;
+                            }
+                            .sub-title{
+                                margin-top: 0.04rem;
+                                font-size: 0.28rem;
+                            }
+                            .desc{
+                                margin-top: 2px;
+                                line-height: 20px;
+                            }
+                            .time{
+                                margin-top: 0.1rem;
+                            }
+                        }
+                        &+.entry{
+                            margin-top: 0rem;
+                            border-top: 1px dashed #cdc29c;
+                        }
+                    }
+                }
+            }
+            .member-content{
+                padding: 0rem;
+                .block{
+                    .block-hd{
+                        font-size: 0.4rem;
+                    }
+                    .block-bd{
+                        padding: 0px 0.2rem;
+                    }
+                    &+.block{
+                        margin-top: 0.2rem;
+                    }
+                }
+                .apply{
+                    .handle-btn{
+                        width: 2.16rem;
+                        height: 0.78rem;
+                        font-size: 0.4rem;
+                        line-height: 0.78rem;
+                    }
+                }
+                .member-list{
+                    .list-hd{
+                        font-size: 0.36rem;
+                    }
+                    .list-bd{
+                        ul{
+                            li{
+                                font-size: 0.28rem;
+                                .index{
+                                    width: 0.36rem;
+                                    height: 0.36rem;
+                                    border-radius: 50%;
+                                    text-align: center;
+                                    line-height: 0.36rem;
+                                    font-size: 0.24rem;
+                                }
+                            }
+                        }
+                    }
+                    &+.member-list{
+                        margin-top: 20px;
+                    }
+                }
+                .link-btn{
+                    font-size: 16px;
+                    color: #6e0d00;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
 }

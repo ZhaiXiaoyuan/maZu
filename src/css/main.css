@@ -134,7 +134,8 @@ h6 {
 /*自定义样式*/
 body {
   background: url("../images/common/cm-bg.jpg");
-  overflow: auto;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .icon {
   display: inline-block;
@@ -202,6 +203,17 @@ body {
   font-size: 20px;
   padding: 20px 20px;
   text-align: center;
+}
+@media screen and (max-width: 1000px) {
+  #app {
+    padding-top: 1rem;
+  }
+  .cm-container {
+    width: auto;
+  }
+  .el-dialog {
+    width: 80% !important;
+  }
 }
 .home .worship-title-icon {
   display: inline-block;
@@ -285,6 +297,10 @@ body {
 .home .worship-panel {
   margin-top: 20px;
   overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .home .worship-panel .panel-hd {
   padding: 0px 40px;
@@ -527,7 +543,7 @@ body {
 }
 .home .worship-panel .number-block .row {
   background: url("../images/home/counter-bg.png") no-repeat;
-  width: 170px;
+  min-width: 170px;
   height: 36px;
   background-size: 100% 100%;
   color: #59120b;
@@ -544,12 +560,16 @@ body {
   top: 10px;
   right: 10px;
   background: url("../images/home/data-bg.png") no-repeat;
-  width: 130px;
+  background-size: 100% 100%;
+  min-width: 130px;
   height: 79px;
   color: #59120b;
   font-size: 12px;
   line-height: 17px;
   padding: 13px 10px 10px 15px;
+}
+.home .worship-panel .data-block p {
+  white-space: nowrap;
 }
 .home .worship-panel .data-block .strong {
   font-size: 14px;
@@ -632,6 +652,28 @@ body {
           animation-iteration-count: 3;
   -webkit-animation-fill-mode: none;
           animation-fill-mode: none;
+}
+.home .left-desk {
+  position: absolute;
+  z-index: 0;
+  left: 0px;
+  top: 373px;
+  display: inline-block;
+  background: url("../images/home/left-desk.png") no-repeat;
+  width: 281px;
+  height: 225px;
+  background-size: 100% 100%;
+}
+.home .right-desk {
+  position: absolute;
+  z-index: 0;
+  right: 0px;
+  top: 373px;
+  display: inline-block;
+  background: url("../images/home/right-desk.png") no-repeat;
+  width: 280px;
+  height: 225px;
+  background-size: 100% 100%;
 }
 .home .btn-block {
   position: absolute;
@@ -765,6 +807,7 @@ body {
 }
 .home .dialog-block {
   opacity: 0;
+  z-index: 200;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -998,6 +1041,16 @@ body {
     width: 747px;
     height: 700px;
   }
+  .home .worship-panel .left-desk {
+    top: 292px;
+    width: 216px;
+    height: 173px;
+  }
+  .home .worship-panel .right-desk {
+    top: 292px;
+    width: 216px;
+    height: 173px;
+  }
   .home .worship-panel .cirle-icon {
     top: 27px;
     width: 151px;
@@ -1152,10 +1205,8 @@ body {
   }
   .home .flower-gift-item.active {
     opacity: 1;
-    -webkit-transition: -webkit-transform 2s ease;
-    transition: -webkit-transform 2s ease;
-    transition: transform 2s ease;
-    transition: transform 2s ease, -webkit-transform 2s ease;
+    -webkit-transition: all 2s ease;
+    transition: all 2s ease;
   }
   .home .incense-gift-item {
     -webkit-transform: translate(357px, 450px);
@@ -1283,6 +1334,492 @@ body {
     overflow: hidden;
     width: 100%;
     height: 100%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .home .banner-panel {
+    width: 100%;
+    height: 3.2rem;
+    /*    background: url("../images/home/banner-bg.jpg") no-repeat center;
+                background-size: cover;*/
+  }
+  .home .banner-panel .banner-item-content .link-tips {
+    top: 72%;
+    font-size: 0.24rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    border-radius: 0.25rem;
+    padding: 0rem 0.3rem;
+  }
+  .home .worship-panel {
+    margin-top: 0.1rem;
+  }
+  .home .worship-panel .panel-hd {
+    padding: 0px 0.2rem;
+    background: url("../images/common/panel-line.png") no-repeat bottom;
+    width: 100%;
+    background-size: 100% auto;
+  }
+  .home .worship-panel .panel-hd .worship-title-icon {
+    width: 4.34rem;
+    height: 0.76rem;
+  }
+  .home .worship-panel .panel-bd {
+    position: relative;
+    background: url("../images/home/mazu-bg.jpg") no-repeat;
+    margin: 0.2rem auto 0px auto;
+    width: 100%;
+    height: 9.8rem;
+    overflow: hidden;
+    background-position: top center;
+    background-size: auto 94%;
+  }
+  @-webkit-keyframes bottom-cloud-ani {
+    0% {
+      -webkit-transform: translate(-24.65rem);
+              transform: translate(-24.65rem);
+      opacity: 1;
+    }
+    30% {
+      -webkit-transform: translate(-10rem);
+              transform: translate(-10rem);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translate(12rem);
+              transform: translate(12rem);
+      opacity: 1;
+    }
+  }
+  @keyframes bottom-cloud-ani {
+    0% {
+      -webkit-transform: translate(-24.65rem);
+              transform: translate(-24.65rem);
+      opacity: 1;
+    }
+    30% {
+      -webkit-transform: translate(-10rem);
+              transform: translate(-10rem);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translate(12rem);
+              transform: translate(12rem);
+      opacity: 1;
+    }
+  }
+  .home .worship-panel .bottom-cloud {
+    left: 0.1rem;
+    bottom: 0.4rem;
+    width: 24.65rem;
+    height: 2.59rem;
+    -webkit-transform: translate(-24.65rem);
+        -ms-transform: translate(-24.65rem);
+            transform: translate(-24.65rem);
+    -webkit-animation: bottom-cloud-ani 100s infinite;
+            animation: bottom-cloud-ani 100s infinite;
+  }
+  .home .worship-panel .bottom-cloud2 {
+    bottom: 2rem;
+    -webkit-transform: translate(-24.65rem);
+        -ms-transform: translate(-24.65rem);
+            transform: translate(-24.65rem);
+    -webkit-animation: bottom-cloud-ani 110s infinite;
+            animation: bottom-cloud-ani 110s infinite;
+    -webkit-animation-delay: 10s;
+            animation-delay: 10s;
+  }
+  .home .worship-panel .bottom-cloud3 {
+    bottom: 1.8rem;
+    -webkit-transform: translate(-1750px);
+        -ms-transform: translate(-1750px);
+            transform: translate(-1750px);
+    -webkit-animation: bottom-cloud-ani 200s infinite;
+            animation: bottom-cloud-ani 200s infinite;
+    -webkit-animation-delay: 50s;
+            animation-delay: 50s;
+  }
+  .home .worship-panel .bottom-cloud4 {
+    bottom: -1rem;
+    -webkit-transform: translate(-24.65rem);
+        -ms-transform: translate(-24.65rem);
+            transform: translate(-24.65rem);
+    -webkit-animation: bottom-cloud-ani 120s infinite;
+            animation: bottom-cloud-ani 120s infinite;
+    -webkit-animation-delay: 20s;
+            animation-delay: 20s;
+  }
+  .home .worship-panel .bottom-cloud-wrap {
+    left: 0rem;
+    bottom: 0.6rem;
+    height: 4rem;
+  }
+  .home .worship-panel .dialog-block {
+    opacity: 0;
+    top: 1.7rem;
+    left: 3.8rem;
+    width: 3.5rem;
+    min-height: 1.2rem;
+    /*     max-height: 1.4rem;*/
+    overflow: hidden;
+    font-size: 0.24rem;
+    padding: 0.1rem 0.12rem 0.1rem 0.9rem;
+    line-height: 0.34rem;
+    -webkit-transform: scale(0.78);
+        -ms-transform: scale(0.78);
+            transform: scale(0.78);
+  }
+  .home .worship-panel .dialog-block.active {
+    opacity: 1;
+  }
+  .home .worship-panel .number-block {
+    top: 0rem;
+    left: 0.04rem;
+  }
+  .home .worship-panel .number-block .row {
+    position: relative;
+    z-index: 1;
+    margin-top: -0.08rem;
+    min-width: 3.04rem;
+    height: 0.64rem;
+    font-size: 0.24rem;
+    padding: 0.24rem 0.2rem 0rem 0.2rem;
+    white-space: nowrap;
+  }
+  .home .worship-panel .number-block .row .strong {
+    font-size: 0.28rem;
+  }
+  .home .worship-panel .number-block .row + .row {
+    z-index: 0;
+  }
+  .home .worship-panel .data-block {
+    top: 0rem;
+    right: 0rem;
+    min-width: 2.34rem;
+    height: 1.42rem;
+    font-size: 0.24rem;
+    line-height: 0.32rem;
+    padding: 0.24rem 0.18rem 0rem 0.24rem;
+  }
+  .home .worship-panel .data-block .strong {
+    font-size: 0.24rem;
+    color: #e71719;
+    font-weight: bold;
+  }
+  .home .worship-panel .left-desk {
+    left: 0rem;
+    top: 4rem;
+    width: 2.16rem;
+    height: 1.73rem;
+  }
+  .home .worship-panel .right-desk {
+    right: 0rem;
+    top: 4rem;
+    width: 2.16rem;
+    height: 1.73rem;
+  }
+  .home .worship-panel .cirle-icon {
+    top: 1.12rem;
+    width: 1.51rem;
+    height: 1.51rem;
+  }
+  .home .worship-panel .light-icon {
+    position: absolute;
+    top: 0.9rem;
+    width: 2.08rem;
+    height: 2.08rem;
+  }
+  .home .worship-panel .left-potted {
+    top: 4.8rem;
+    left: 1.68rem;
+    width: 0.8rem;
+    height: 1.18rem;
+  }
+  .home .worship-panel .right-potted {
+    top: 4.8rem;
+    right: 1.68rem;
+    width: 0.8rem;
+    height: 1.18rem;
+  }
+  .home .worship-panel .merit {
+    top: 5.5rem;
+    bottom: auto;
+    right: 0.6rem;
+    width: 0.84rem;
+    height: 0.96rem;
+  }
+  .home .worship-panel .mazu {
+    top: 1.68rem;
+    width: 3.33rem;
+    height: 4.33rem;
+  }
+  .home .worship-panel .burner {
+    top: 5.8rem;
+    width: 4.18rem;
+    height: 0.85rem;
+  }
+  .home .worship-panel .flower-icon {
+    display: inline-block;
+    background: url("../images/home/flower-icon.png");
+    width: 0.40rem;
+    height: 0.79rem;
+    background-size: 100% 100%;
+  }
+  .home .worship-panel .candlestick-item {
+    display: inline-block;
+    width: 0.28rem;
+    position: absolute;
+  }
+  .home .worship-panel .candlestick-item .wrapper {
+    position: relative;
+    text-align: center;
+  }
+  .home .worship-panel .candlestick-item .fire-icon {
+    top: 0.06rem;
+    left: 0.08rem;
+    width: 0.12rem;
+    height: 0.24rem;
+  }
+  .home .worship-panel .candlestick-item .candlestick-icon {
+    width: 0.28rem;
+    height: 0.43rem;
+  }
+  .home .worship-panel .smoke-icon {
+    width: 0.24rem;
+    height: 1.36rem;
+    background: url("../images/home/smoke-icon.gif");
+    background-size: 100% 100%;
+    opacity: 0.28;
+    -webkit-transform: rotateY(35deg);
+            transform: rotateY(35deg);
+  }
+  .home .worship-panel .incense-item .stick-icon {
+    width: 0.2rem;
+    height: 0.82rem;
+  }
+  .home .worship-panel .barrage-block {
+    position: absolute;
+    z-index: 10;
+    background: url("../images/home/barrage-bg.png") no-repeat;
+    background-size: 100% 100%;
+    width: 2.6rem;
+    height: 3.6rem;
+    left: 0rem;
+    bottom: 0.8rem;
+    padding: 0.1rem 0rem;
+  }
+  .home .worship-panel .barrage-block .block-content {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  .home .worship-panel .barrage-block ul {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    padding: 0px 0.04rem;
+  }
+  .home .worship-panel .barrage-block ul li {
+    margin: 0.04rem 0px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-radius: 0.3rem;
+    -webkit-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  .home .worship-panel .barrage-block ul li img {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+  }
+  .home .worship-panel .barrage-block ul li .text {
+    padding-left: 0.1rem;
+    font-size: 0.24rem;
+    color: #d4d4d4;
+  }
+  .home .worship-panel .barrage-block ul li .text span {
+    color: #ddbf6e;
+  }
+  .home .worship-panel .barrage-block ul li .text span:first-child {
+    display: block;
+  }
+  @-webkit-keyframes barrage-ani {
+    0% {
+      box-shadow: 0px 0px 10px #ffe400;
+    }
+    50% {
+      box-shadow: 1px 1px 4px #ffe400;
+    }
+    100% {
+      box-shadow: 0px 0px 10px #ffe400;
+    }
+  }
+  @keyframes barrage-ani {
+    0% {
+      box-shadow: 0px 0px 10px #ffe400;
+    }
+    50% {
+      box-shadow: 1px 1px 4px #ffe400;
+    }
+    100% {
+      box-shadow: 0px 0px 10px #ffe400;
+    }
+  }
+  .home .worship-panel .barrage-block ul li.active {
+    -webkit-animation: barrage-ani 1.2s infinite;
+            animation: barrage-ani 1.2s infinite;
+    -webkit-animation-iteration-count: 3;
+            animation-iteration-count: 3;
+    -webkit-animation-fill-mode: none;
+            animation-fill-mode: none;
+  }
+  .home .worship-panel .btn-block {
+    z-index: 50;
+    bottom: 0rem;
+    margin: auto;
+    width: 4.8rem;
+    height: 2.8rem;
+  }
+  .home .worship-panel .btn-block .block-content {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background: url("../images/home/counter.png") no-repeat center 88%;
+    background-size: 100% auto;
+  }
+  .home .worship-panel .btn-block .btn-list {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+  }
+  .home .worship-panel .btn-block .btn-list > li {
+    display: inline-block;
+    width: 1.08rem;
+  }
+  .home .worship-panel .btn-block .worship-icon {
+    display: inline-block;
+    background: url("../images/home/worship-icon.png") no-repeat;
+    width: 2.05rem;
+    height: 0.74rem;
+    background-size: 100% 100%;
+  }
+  .home .worship-panel .btn-block .flower-btn {
+    background: url("../images/home/flower-btn.png") no-repeat;
+    width: 0.81rem;
+    height: 1.89rem;
+    background-size: 100% 100%;
+  }
+  .home .worship-panel .btn-block .flower-btn:active {
+    background: url("../images/home/flower-btn-active.png") no-repeat;
+    width: 1rem;
+    height: 2.08rem;
+    background-size: 100% 100%;
+    -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  .home .worship-panel .btn-block .incense-btn {
+    background: url("../images/home/incense-btn.png") no-repeat;
+    width: 0.91rem;
+    height: 1.53rem;
+    background-size: 100% 100%;
+  }
+  .home .worship-panel .btn-block .incense-btn:active {
+    background: url("../images/home/incense-btn-active.png") no-repeat;
+    width: 1.13rem;
+    height: 1.74rem;
+    background-size: 100% 100%;
+    -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  .home .worship-panel .btn-block .candlestick-btn {
+    background: url("../images/home/candlestick-btn.png") no-repeat;
+    width: 0.52rem;
+    height: 1.76rem;
+    background-size: 100% 100%;
+  }
+  .home .worship-panel .btn-block .candlestick-btn:active {
+    background: url("../images/home/candlestick-btn-active.png") no-repeat;
+    width: 0.77rem;
+    height: 1.94rem;
+    background-size: 100% 100%;
+    -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  .home .worship-panel .flower-gift-item {
+    -webkit-transform: translate(2.2rem, 7.9rem);
+        -ms-transform: translate(2.2rem, 7.9rem);
+            transform: translate(2.2rem, 7.9rem);
+    width: 0.8rem;
+    height: 1.58rem;
+  }
+  .home .worship-panel .flower-gift-item.active {
+    width: 0.4rem;
+    height: 0.79rem;
+  }
+  .home .worship-panel .incense-gift-item {
+    -webkit-transform: translate(3.6rem, 6.8rem);
+        -ms-transform: translate(3.6rem, 6.8rem);
+            transform: translate(3.6rem, 6.8rem);
+  }
+  .home .worship-panel .gcandlestick-gift-item {
+    -webkit-transform: translate(5.59rem, 7.8rem);
+        -ms-transform: translate(5.59rem, 7.8rem);
+            transform: translate(5.59rem, 7.8rem);
+  }
+  .home .worship-panel .gcandlestick-gift-item .candlestick-item {
+    position: static;
+    width: 0.56rem;
+    -webkit-transition: all 1.8s ease;
+    transition: all 1.8s ease;
+  }
+  .home .worship-panel .gcandlestick-gift-item .candlestick-item .fire-icon {
+    top: 0.12rem;
+    left: 0.16rem;
+    width: 0.24rem;
+    height: 0.48rem;
+    -webkit-transition: all 1.8s ease;
+    transition: all 1.8s ease;
+  }
+  .home .worship-panel .gcandlestick-gift-item .candlestick-item .candlestick-icon {
+    width: 0.56rem;
+    height: 0.86rem;
+    -webkit-transition: all 1.8s ease;
+    transition: all 1.8s ease;
+  }
+  .home .worship-panel .gcandlestick-gift-item.active {
+    opacity: 1;
+    -webkit-transition: -webkit-transform 1.8s ease;
+    transition: -webkit-transform 1.8s ease;
+    transition: transform 1.8s ease;
+    transition: transform 1.8s ease, -webkit-transform 1.8s ease;
+  }
+  .home .worship-panel .gcandlestick-gift-item.active .candlestick-item {
+    width: 0.28rem;
+  }
+  .home .worship-panel .gcandlestick-gift-item.active .candlestick-item .fire-icon {
+    top: 0.06rem;
+    left: 0.08rem;
+    width: 0.12rem;
+    height: 0.24rem;
+  }
+  .home .worship-panel .gcandlestick-gift-item.active .candlestick-item .candlestick-icon {
+    width: 0.28rem;
+    height: 0.43rem;
   }
 }
 .cm-page .introduce-panel {
@@ -1512,4 +2049,129 @@ body {
   font-size: 16px;
   color: #6e0d00;
   text-decoration: underline;
+}
+@media screen and (max-width: 1000px) {
+  .cm-page .introduce-panel {
+    padding-top: 0rem;
+  }
+  .cm-page .introduce-panel .avatar {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.1rem;
+    margin-left: 0.2rem;
+  }
+  .cm-page .introduce-panel .avatar .avatar-mask {
+    width: 2rem;
+    height: 2rem;
+  }
+  .cm-page .introduce-panel .text-info {
+    margin-left: 0.2rem;
+    padding-right: 0.2rem;
+    width: 68%;
+  }
+  .cm-page .introduce-panel .text-info .title {
+    font-size: 0.32rem;
+  }
+  .cm-page .introduce-panel .text-info .desc {
+    margin-top: 0.1rem;
+    font-size: 0.24rem;
+    color: #333;
+    line-height: 0.36rem;
+  }
+  .cm-page .introduce-panel .text-info .handle-btn {
+    margin-top: 0.2rem;
+    padding: 0.08rem 0.24rem;
+    font-size: 0.28rem;
+  }
+  .cm-page .introduce-panel .text-info .link-btn {
+    padding-left: 5px;
+    color: #850303;
+  }
+  .cm-page .introduce-panel .gallery {
+    margin-bottom: 0.3rem;
+    width: 100%;
+    height: 3rem;
+  }
+  .cm-page .detail-panel {
+    margin-top: 0.4rem;
+    padding: 0rem 0.2rem;
+  }
+  .cm-page .detail-panel .panel-bd {
+    padding-top: 0.3rem;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry {
+    padding: 0.2rem 0rem;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry .cover {
+    float: left;
+    width: 2.16rem;
+    /*  height: 1.48rem;*/
+    height: 1.6rem;
+    background: #eaeaea;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry .text-info {
+    padding-left: 2.3rem;
+    padding-right: 0rem;
+    font-size: 0.24rem;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry .text-info .title {
+    margin-top: 0rem;
+    font-size: 0.28rem;
+    color: #891619;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry .text-info .sub-title {
+    margin-top: 0.04rem;
+    font-size: 0.28rem;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry .text-info .desc {
+    margin-top: 2px;
+    line-height: 20px;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry .text-info .time {
+    margin-top: 0.1rem;
+  }
+  .cm-page .detail-panel .panel-bd .entry-list .entry + .entry {
+    margin-top: 0rem;
+    border-top: 1px dashed #cdc29c;
+  }
+  .cm-page .detail-panel .member-content {
+    padding: 0rem;
+  }
+  .cm-page .detail-panel .member-content .block .block-hd {
+    font-size: 0.4rem;
+  }
+  .cm-page .detail-panel .member-content .block .block-bd {
+    padding: 0px 0.2rem;
+  }
+  .cm-page .detail-panel .member-content .block + .block {
+    margin-top: 0.2rem;
+  }
+  .cm-page .detail-panel .member-content .apply .handle-btn {
+    width: 2.16rem;
+    height: 0.78rem;
+    font-size: 0.4rem;
+    line-height: 0.78rem;
+  }
+  .cm-page .detail-panel .member-content .member-list .list-hd {
+    font-size: 0.36rem;
+  }
+  .cm-page .detail-panel .member-content .member-list .list-bd ul li {
+    font-size: 0.28rem;
+  }
+  .cm-page .detail-panel .member-content .member-list .list-bd ul li .index {
+    width: 0.36rem;
+    height: 0.36rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 0.36rem;
+    font-size: 0.24rem;
+  }
+  .cm-page .detail-panel .member-content .member-list + .member-list {
+    margin-top: 20px;
+  }
+  .cm-page .detail-panel .member-content .link-btn {
+    font-size: 16px;
+    color: #6e0d00;
+    text-decoration: underline;
+  }
 }
