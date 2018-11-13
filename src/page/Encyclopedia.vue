@@ -6,7 +6,7 @@
                     <div class="gallery">
                         <el-carousel :interval="4000" type="card" height="120" indicator-position="none">
                             <el-carousel-item v-for="(item,index) in gallery" :key="index" :style="{background: 'url('+item.imgUrl+') no-repeat center',backgroundSize: 'cover'}">
-
+                                <div style="width: 100%;height: 100%;" @click="viewPic(index)"></div>
                             </el-carousel-item>
                         </el-carousel>
                     </div>
@@ -121,6 +121,9 @@
                     }
                 });
             },
+            viewPic:function (index) {
+                this.viewPicModal({index:index,imgList:this.gallery});
+            }
         },
         mounted () {
             this.getList();

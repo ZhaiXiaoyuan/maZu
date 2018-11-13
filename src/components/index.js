@@ -64,7 +64,8 @@ export default {
          */
         viewPicModal:function (options) {
             options={...{
-               imgUrl:null,
+               index:0,
+               imgList:[],
             },...options};
             //
             let parentEle=document.getElementById('app');
