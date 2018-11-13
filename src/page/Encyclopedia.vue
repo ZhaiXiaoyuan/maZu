@@ -64,7 +64,7 @@
                 avatar:require('../images/encyclopedia/avatar.jpg'),
 
                 gallery:[
-                    {
+                  /*  {
                         imgUrl:require('../images/encyclopedia/g1.jpg'),
                     },
                     {
@@ -72,7 +72,7 @@
                     },
                     {
                         imgUrl:require('../images/encyclopedia/g3.jpg'),
-                    },
+                    },*/
                 ],
 
                 pager:{
@@ -99,15 +99,32 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         let list=data.associationNewsList;
-                        list.reverse();
+                       /* list.reverse();*/
                         this.entryList=list;
                         this.pager.total=data.count;
+                    }
+                });
+            },
+            getImgList:function () {
+                Vue.api.getPhotoAlbumInfo({name:'妈祖文化相册'}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let detail=JSON.parse(resp.respMsg);
+                        let list=JSON.parse(detail.imageList);
+                        list.forEach((item,i)=>{
+                            this.gallery.push({
+                                name:item,
+                                imgUrl:Vue.tools.basicConfig.coverBasicUrl+item
+                            })
+                        })
+                    }else{
+
                     }
                 });
             },
         },
         mounted () {
             this.getList();
+            this.getImgList();
         },
     }
 </script>

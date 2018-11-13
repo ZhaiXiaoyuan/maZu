@@ -101,6 +101,14 @@ export default {
                 params: params
             });
         },
+        //获取单个相册的信息
+        getPhotoAlbumInfo:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mazu-webConsole/associationNews/getPhotoAlbumInfo',
+                params: params
+            });
+        },
     }
   },
 

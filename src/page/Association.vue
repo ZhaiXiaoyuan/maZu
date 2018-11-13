@@ -116,7 +116,7 @@
                 applyModalFlag:false,
 
                 gallery:[
-                    {
+                  /*  {
                         imgUrl:require('../images/association/g1.jpg'),
                     },
                     {
@@ -130,7 +130,7 @@
                     },
                     {
                         imgUrl:require('../images/association/g5.jpg'),
-                    }
+                    }*/
                 ],
 
                 pager:{
@@ -153,7 +153,7 @@
                 Vue.api.getMemberList(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        console.log('data:',data);
+                      /*  console.log('data:',data);*/
                         let list=data.memberOrganizationList;
                         function compare(key){
                             return function(a,b){
@@ -205,11 +205,28 @@
                     return false;
                 }
                 this.$router.push({ name: 'article',query:{id:item.id,type:'association',contentType:'member'}});
-            }
+            },
+            getImgList:function () {
+                Vue.api.getPhotoAlbumInfo({name:'协会相册'}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let detail=JSON.parse(resp.respMsg);
+                        let list=JSON.parse(detail.imageList);
+                        list.forEach((item,i)=>{
+                            this.gallery.push({
+                                name:item,
+                                imgUrl:Vue.tools.basicConfig.coverBasicUrl+item
+                            })
+                        })
+                    }else{
+
+                    }
+                });
+            },
         },
         mounted () {
             this.getMemberList();
             this.getList();
+            this.getImgList();
         },
     }
 </script>
