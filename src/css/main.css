@@ -2042,6 +2042,9 @@ body {
   cursor: pointer;
   color: #6e0d00;
 }
+.cm-page .detail-panel .member-content .member-list .list-bd ul li.active a {
+  color: #6e0d00;
+}
 .cm-page .detail-panel .member-content .member-list + .member-list {
   margin-top: 20px;
 }

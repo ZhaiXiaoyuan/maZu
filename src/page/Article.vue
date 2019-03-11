@@ -40,10 +40,12 @@
                         <p class="title">世界妈祖交流协会</p>
                     </div>
                     <div class="right-part">
-                        <p>手机：暂缺</p>
-                        <p>邮箱：暂缺</p>
-                        <p>电话：暂缺</p>
-                        <p>地址：暂缺</p>
+                        <p>手机：9731 4768</p>
+                        <p>邮箱：global.mazu@gmail.com</p>
+                        <p>电话：+65 6259 2565</p>
+                        <p>地址：47 Beach Road, #06-03,
+                            Kheng Chiu Building
+                            Singapore 189683</p>
                     </div>
                 </div>
                 <div class="article-content" v-if="contentType=='dynamic'||contentType=='member'">
@@ -97,7 +99,7 @@
             padding: 40px 20px 20px 20px;
             .left-part{
                 text-align: center;
-                width: 45%;
+                flex:1;
                 img{
                     width: 120px;
                     height: 120px;
@@ -109,6 +111,7 @@
                 }
             }
             .right-part{
+                flex: 1.4;
                 margin-left: 10px;
                 font-size: 14px;
                 color:#000;

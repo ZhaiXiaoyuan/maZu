@@ -42,7 +42,7 @@
                             <div class="cm-btn handle-btn" @click="applyModalFlag=true">申请入会</div>
                             <el-dialog title="申请入会" :visible.sync="applyModalFlag" v-if="applyModalFlag" width="500px">
                                 <div class="dialog-body" style="min-height: 80px;">
-                                    <p style="font-size: 18px;">请发送邮件到邮箱global.mazu.public@gmail.com</p>
+                                    <p style="font-size: 18px;">请发送邮件到邮箱global.mazu@gmail.com</p>
                                 </div>
                                 <div slot="footer" class="dialog-footer">
                                     <el-button type="primary" @click="applyModalFlag=false">关闭</el-button>
@@ -59,7 +59,8 @@
                                     <div class="list-bd">
                                         <ul>
                                             <li v-for="(item,i) in entry.subList" :key="i" :class="{'active':item.content=='true'}" @click="toMember(item)">
-                                                <span class="index">{{i+1}}</span>{{item.name}}
+                                                <a href="" v-if="item.name.indexOf('href')>-1"> <span class="index">{{i+1}}</span>{{item.name}}</a>
+                                                <div v-if="item.name.indexOf('href')==-1"><span class="index">{{i+1}}</span>{{item.name}}</div>
                                             </li>
                                         </ul>
                                     </div>
